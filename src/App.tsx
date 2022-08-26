@@ -1,6 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from './routes';
-import { ReactQueryProvider } from './services/reactQuery';
+import { ThemeProvider } from '~/styles';
+import { ReactQueryProvider } from '~/services/reactQuery';
 
 import './App.css';
 
@@ -8,7 +9,9 @@ export function App() {
   return (
     <BrowserRouter>
       <ReactQueryProvider>
-        <AppRoutes />
+        <ThemeProvider>
+          <AppRoutes />
+        </ThemeProvider>
       </ReactQueryProvider>
     </BrowserRouter>
   );
