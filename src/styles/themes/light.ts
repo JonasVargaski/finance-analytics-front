@@ -4,6 +4,7 @@ export const lightTheme: AppTheme = {
   palette: {
     title: '#06152B',
     text: '#809FB8',
+    activeText: '#384455',
     divider: '#F1F4F9',
     info: '#FE6BBA',
     background: '#F7F8FA',
@@ -17,5 +18,8 @@ export const lightTheme: AppTheme = {
     warningLight: 'rgba(255, 181, 54, 0.298039)',
     danger: '#F3654A',
     dangerLight: 'rgba(243, 101, 74, 0.298039)',
+  },
+  shadows: {
+    card: '0px 0px 9px -6px rgb(0, 0, 0, 0.3)',
   },
 };

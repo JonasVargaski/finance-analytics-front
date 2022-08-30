@@ -9,6 +9,9 @@ export const queryClient = new QueryClient({
       refetchOnMount: false,
       refetchOnReconnect: false,
       staleTime: 2 * 60 * 1000,
+      retry(failureCount) {
+        return failureCount < 2;
+      },
     },
   },
 });

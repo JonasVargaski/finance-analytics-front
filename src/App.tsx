@@ -3,16 +3,14 @@ import { AppRoutes } from './routes';
 import { ThemeProvider } from '~/styles';
 import { ReactQueryProvider } from '~/services/reactQuery';
 
-import './App.css';
-
 export function App() {
   return (
     <BrowserRouter>
-      <ReactQueryProvider>
-        <ThemeProvider>
+      <ThemeProvider>
+        <ReactQueryProvider>
           <AppRoutes />
-        </ThemeProvider>
-      </ReactQueryProvider>
+        </ReactQueryProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

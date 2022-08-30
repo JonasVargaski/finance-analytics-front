@@ -9,6 +9,7 @@ interface QueryOptions extends UseQueryOptions<IWallet[], AxiosError> {
 interface IWallet {
   id: string;
   name: string;
+  description: string;
   items: {
     ticker: string;
     quotas: number;
@@ -21,6 +22,7 @@ interface IWallet {
 interface IResultData {
   id: string;
   name: string;
+  description: string;
   items: {
     ticker: string;
     quotas: number;

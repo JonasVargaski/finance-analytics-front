@@ -1,9 +1,9 @@
 import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { Column, Row } from '~/components/Grid';
 import { MyResponsivePie } from '~/components/MyResponsivePie';
 import { useWalletPerformace } from '~/hooks/resources/useWalletPerformace';
-import { useWalletPerformace2 } from '~/hooks/resources/useWalletPerformace2';
 import { currency, percent } from '~/utils/numberFormat';
 
 interface IWalletPerformanceProps {
@@ -18,8 +18,6 @@ export function WalletPerformance({ children }: IWalletPerformanceProps) {
   if (!id) navigate('/');
 
   const { data } = useWalletPerformace({ id, suspense: true, enabled: !!id });
-  const { data: data2 } = useWalletPerformace2({ id, suspense: true, enabled: !!id });
-  console.log(data2);
 
   const totals = {
     amout: 0,
@@ -59,6 +57,18 @@ export function WalletPerformance({ children }: IWalletPerformanceProps) {
   return (
     <div>
       <h3>Resultados da carteira &quot;{state as string}&quot;</h3>
+
+      <Row>
+        <Column style={{ background: 'red' }} lg='3'>
+          1
+        </Column>
+        <Column style={{ background: 'blue' }} lg='3'>
+          2
+        </Column>
+        <Column style={{ background: 'pink' }} lg='3'>
+          3
+        </Column>
+      </Row>
 
       <table
         style={{

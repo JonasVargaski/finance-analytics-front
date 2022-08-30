@@ -6,6 +6,7 @@ export interface AppTheme {
   palette: {
     title: string;
     text: string;
+    activeText: string;
     divider: string;
     info: string;
     background: string;
@@ -19,6 +20,9 @@ export interface AppTheme {
     warningLight: string;
     danger: string;
     dangerLight: string;
+  };
+  shadows: {
+    card: string;
   };
 }
 

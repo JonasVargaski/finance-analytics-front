@@ -9,8 +9,10 @@ interface IThemeProviderProps {
 export function ThemeProvider({ children }: IThemeProviderProps) {
   return (
     <EmotionThemeProvider theme={lightTheme}>
-      <Global styles={globalStyles} />
-      {children}
+      <>
+        <Global styles={globalStyles} />
+        {children}
+      </>
     </EmotionThemeProvider>
   );
 }
