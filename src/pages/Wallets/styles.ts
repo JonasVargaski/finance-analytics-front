@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
+  grid-gap: 1.3rem;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  grid-auto-rows: auto;
 `;
 
 export const Card = styled.li`
@@ -17,7 +18,6 @@ export const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 36px;
 
   h6 {
     font-size: 16px;

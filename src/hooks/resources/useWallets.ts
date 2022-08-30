@@ -10,24 +10,13 @@ interface IWallet {
   id: string;
   name: string;
   description: string;
+  amount: number;
   items: {
     ticker: string;
+    color: string;
     quotas: number;
     price: number;
-    amount: number;
-    tradingDate: string;
-  }[];
-}
-
-interface IResultData {
-  id: string;
-  name: string;
-  description: string;
-  items: {
-    ticker: string;
-    quotas: number;
-    price: number;
-    amount: number;
+    percent: number;
     tradingDate: string;
   }[];
 }
@@ -36,7 +25,7 @@ export function useWallets(options: QueryOptions = {}): UseQueryResult<IWallet[]
   return useQuery<IWallet[], AxiosError>(
     ['wallets'],
     async () => {
-      const { data } = await api.get<IResultData[]>('/wallet');
+      const { data } = await api.get<IWallet[]>('/wallet');
       return data;
     },
     options,
