@@ -24,6 +24,12 @@ export interface AppTheme {
   shadows: {
     card: string;
   };
+  components: {
+    tooltip: {
+      color: string;
+      background: string;
+    };
+  };
 }
 
 declare module 'react' {

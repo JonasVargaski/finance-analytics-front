@@ -22,4 +22,10 @@ export const lightTheme: AppTheme = {
   shadows: {
     card: '0px 0px 9px -6px rgb(0, 0, 0, 0.3)',
   },
+  components: {
+    tooltip: {
+      color: '#fcfcfc',
+      background: '#616161e6',
+    },
+  },
 };

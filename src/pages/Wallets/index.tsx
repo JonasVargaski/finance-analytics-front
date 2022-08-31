@@ -9,6 +9,7 @@ import { AlocationTable, Card, Container, Header } from './styles';
 import { Column, Row } from '~/components/Grid';
 import { currency, percent } from '~/utils/numberFormat';
 import { ColorBadge } from '~/components/ColorBadge';
+import { Tooltip } from '~/components/Tooltip';
 
 export function Wallets() {
   const navigate = useNavigate();
@@ -21,9 +22,13 @@ export function Wallets() {
           <Header>
             <h6>{x.name}</h6>
             <Flex>
-              <IconButton onClick={() => navigate(`/wallet/performace/${x.id}`, { state: x.name })}>
-                <MdMoreVert />
-              </IconButton>
+              <Tooltip placement='top' content='Opções'>
+                <IconButton
+                  onClick={() => navigate(`/wallet/performace/${x.id}`, { state: x.name })}
+                >
+                  <MdMoreVert />
+                </IconButton>
+              </Tooltip>
             </Flex>
           </Header>
 
@@ -44,6 +49,7 @@ export function Wallets() {
                 }))}
               />
             </Column>
+
             <Column xs='7'>
               <AlocationTable>
                 <tbody>
