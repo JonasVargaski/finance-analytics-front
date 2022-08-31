@@ -49,6 +49,10 @@ export const globalStyles = css`
     cursor: pointer;
   }
 
+  table {
+    border-spacing: 1px;
+  }
+
   [disabled] {
     cursor: not-allowed;
   }

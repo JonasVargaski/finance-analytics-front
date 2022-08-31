@@ -23,12 +23,12 @@ export const IconButton = styled((props: React.HTMLProps<HTMLButtonElement>) => 
     background-color: rgba(0, 0, 0, 0.04);
   }
 
-  &:hover:active {
+  &:active {
     background-color: rgba(0, 0, 0, 0.1);
   }
 
   &:hover:not(:disabled):not(:active) {
-    filter: brightness(110%);
+    filter: brightness(113%);
   }
 
   &:disabled {

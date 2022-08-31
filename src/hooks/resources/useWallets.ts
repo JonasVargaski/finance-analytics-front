@@ -12,6 +12,7 @@ interface IWallet {
   description: string;
   amount: number;
   items: {
+    id: string;
     ticker: string;
     color: string;
     quotas: number;

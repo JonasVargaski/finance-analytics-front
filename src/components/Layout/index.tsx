@@ -1,19 +1,28 @@
 import { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
-import { Fallback } from '../Fallback';
 import { MdMailOutline, MdOutlineSettings } from 'react-icons/md';
-import { Container, Header, Main, NavSidebar } from './styles';
+import { Outlet } from 'react-router-dom';
+
+import { Fallback } from '~/components/Fallback';
+import { IconButton } from '~/components/IconButton';
+import { Flex } from '~/components/Flex';
+import { Typography } from '~/components/Typography';
+
 import { NavItems } from './NavItems';
+import { Container, Header, Main, NavSidebar } from './styles';
 
 export function AppLayout() {
   return (
     <Container>
       <Header>
-        <h3>Carteiras</h3>
-        <div>
-          <MdMailOutline />
-          <MdOutlineSettings />
-        </div>
+        <Typography variant='cardTitle'>Carteiras</Typography>
+        <Flex g='7px'>
+          <IconButton>
+            <MdMailOutline />
+          </IconButton>
+          <IconButton>
+            <MdOutlineSettings />
+          </IconButton>
+        </Flex>
       </Header>
 
       <NavSidebar>

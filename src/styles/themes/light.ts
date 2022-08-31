@@ -7,7 +7,7 @@ export const lightTheme: AppTheme = {
     activeText: '#384455',
     divider: '#F1F4F9',
     info: '#FE6BBA',
-    background: '#F7F8FA',
+    background: '#f5f5f5',
     foreground: '#fff',
     activeBg: '#F1F5F7',
     primary: '#217EFD',

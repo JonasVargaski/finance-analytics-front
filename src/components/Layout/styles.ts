@@ -23,6 +23,10 @@ export const Header = styled.header`
   margin-right: 20px;
   box-shadow: ${({ theme }) => theme.shadows.card};
   background-color: ${({ theme }) => theme.palette.foreground};
+
+  svg {
+    font-size: 1.8rem;
+  }
 `;
 
 export const NavSidebar = styled.nav`

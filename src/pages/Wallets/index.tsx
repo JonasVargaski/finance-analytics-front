@@ -5,7 +5,10 @@ import { IconButton } from '~/components/IconButton';
 import { Typography } from '~/components/Typography';
 import { useWallets } from '~/hooks/resources/useWallets';
 import { AlocationPie } from './AlocationPie';
-import { Card, Container, Header } from './styles';
+import { AlocationTable, Card, Container, Header } from './styles';
+import { Column, Row } from '~/components/Grid';
+import { currency, percent } from '~/utils/numberFormat';
+import { ColorBadge } from '~/components/ColorBadge';
 
 export function Wallets() {
   const navigate = useNavigate();
@@ -24,20 +27,52 @@ export function Wallets() {
             </Flex>
           </Header>
 
-          <Flex p='0 28px 14px 0'>
-            <Typography variant='description'>{x.description}</Typography>
+          <Typography variant='description'>{x.description}</Typography>
+
+          <Flex m='13px 0 3px'>
+            <Typography variant='text'>Alocação:</Typography>
           </Flex>
 
-          <Typography variant='title'>Alocação:</Typography>
-
-          <AlocationPie
-            data={x.items.map((item, i) => ({
-              id: item.ticker + i,
-              label: item.ticker,
-              value: item.percent,
-              color: item.color,
-            }))}
-          />
+          <Row>
+            <Column xs='5'>
+              <AlocationPie
+                data={x.items.map((item) => ({
+                  id: item.id,
+                  label: item.ticker,
+                  value: item.percent,
+                  color: item.color,
+                }))}
+              />
+            </Column>
+            <Column xs='7'>
+              <AlocationTable>
+                <tbody>
+                  {x.items.map((transaction) => (
+                    <tr key={transaction.ticker + transaction.tradingDate}>
+                      <td>
+                        <ColorBadge color={transaction.color} />
+                      </td>
+                      <td>
+                        <b>{transaction.ticker}</b>
+                      </td>
+                      <td>
+                        <span>{percent.format(transaction.percent)}</span>
+                      </td>
+                      <td>
+                        <span>{currency.format(transaction.quotas * transaction.price)}</span>{' '}
+                      </td>
+                    </tr>
+                  ))}
+                  <tr className='totals'>
+                    <td />
+                    <td />
+                    <td>Total:</td>
+                    <td>{currency.format(x.amount)}</td>
+                  </tr>
+                </tbody>
+              </AlocationTable>
+            </Column>
+          </Row>
         </Card>
       ))}
     </Container>

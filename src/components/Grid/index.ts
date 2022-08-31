@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 
-function getWidthGrid(span: string | number) {
-  if (!span) return;
-  return `width: ${(Number(span) / 12) * 100}%`;
+function getWidthGrid(value: string | number) {
+  if (!value) return null;
+  let cols = Number(value);
+  if (cols > 12) cols = 12;
+  return `width: ${(cols / 12) * 100}%`;
 }
 
 export const Row = styled.div`
@@ -22,17 +24,17 @@ interface ColProps {
 
 export const Column = styled.div<ColProps>`
   float: left;
-  ${({ xs }) => (xs ? getWidthGrid(xs) : 'width: 100%')}
+  ${({ xs }) => (xs ? getWidthGrid(xs) : 'width:100%')};
 
-  @media only screen and (min-width: 768px) {
-    ${({ sm }) => sm && getWidthGrid(sm)}
+  @media (min-width: 768px) {
+    ${({ sm }) => sm && getWidthGrid(sm)};
   }
 
-  @media only screen and (min-width: 992px) {
-    ${({ md }) => md && getWidthGrid(md)}
+  @media (min-width: 992px) {
+    ${({ md }) => md && getWidthGrid(md)};
   }
 
-  @media only screen and (min-width: 1200px) {
-    ${({ lg }) => lg && getWidthGrid(lg)}
+  @media (min-width: 1200px) {
+    ${({ lg }) => lg && getWidthGrid(lg)};
   }
 `;

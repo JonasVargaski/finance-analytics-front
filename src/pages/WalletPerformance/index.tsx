@@ -2,7 +2,6 @@ import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { Column, Row } from '~/components/Grid';
-import { MyResponsivePie } from '~/components/MyResponsivePie';
 import { useWalletPerformace } from '~/hooks/resources/useWalletPerformace';
 import { currency, percent } from '~/utils/numberFormat';
 
@@ -208,7 +207,6 @@ export function WalletPerformance({ children }: IWalletPerformanceProps) {
         ))}
       </div>
       {children}
-      <MyResponsivePie />
     </div>
   );
 }
