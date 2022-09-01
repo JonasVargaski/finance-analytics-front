@@ -11,7 +11,7 @@ interface IPopoverProps {
   open: boolean;
   className?: string;
   enableBackdrop?: boolean;
-  anchorEl: React.RefObject<any>;
+  anchorEl: any;
   children: React.ReactNode;
   anchorOrigin?: {
     vertical: tVerticalPosition;
@@ -97,11 +97,11 @@ export function Popover({
   anchorEl,
   onRequestClose,
   children,
-  anchorOrigin,
+  anchorOrigin = { horizontal: 'right', vertical: 'bottom' },
   transformOrigin,
   offset,
   className,
-  enableBackdrop,
+  enableBackdrop = true,
 }: IPopoverProps) {
   const popoverRef = useRef<HTMLDivElement>(null);
 

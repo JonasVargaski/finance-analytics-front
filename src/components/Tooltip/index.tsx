@@ -6,7 +6,7 @@ import { Container } from './styles';
 
 const offsetScreen = 3;
 
-export type tPlacement =
+type TooltipPlacement =
   | 'top'
   | 'bottom'
   | 'left'
@@ -22,10 +22,10 @@ export type tPlacement =
 
 interface IInvert {
   X: {
-    [k in tPlacement]: tPlacement;
+    [k in TooltipPlacement]: TooltipPlacement;
   };
   Y: {
-    [k in tPlacement]: tPlacement;
+    [k in TooltipPlacement]: TooltipPlacement;
   };
 }
 
@@ -64,13 +64,13 @@ interface IReturnCalculatePosition {
   x: number;
   y: number;
   transform: string;
-  arrowClass: tPlacement;
+  arrowClass: TooltipPlacement;
 }
 
 const calculatePosition = (
   container: IElementRect,
   target: IElementRect,
-  placement: tPlacement,
+  placement: TooltipPlacement,
   spacing: number,
 ): IReturnCalculatePosition => {
   let x = 0;
@@ -132,7 +132,7 @@ const calculatePosition = (
 const getTooltipPosition = (
   container: IElementRect,
   target: IElementRect,
-  placement: tPlacement,
+  placement: TooltipPlacement,
   spacing: number,
   screenX: number,
   screenY: number,
@@ -172,7 +172,7 @@ const getTooltipPosition = (
 interface ITooltipContentProps {
   content: React.ReactNode | string | number | null;
   container: IElementRect;
-  placement: tPlacement;
+  placement: TooltipPlacement;
   duration: number;
   arrow?: boolean;
   unStyled?: boolean;
@@ -241,7 +241,7 @@ function TooltipContent({
 export interface ITooltipProps {
   children: React.ReactElement<any>;
   content: React.ReactNode;
-  placement: tPlacement;
+  placement: TooltipPlacement;
   unStyled?: boolean;
   spacing?: number;
   animationDuration?: number;

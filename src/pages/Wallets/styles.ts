@@ -7,13 +7,6 @@ export const Container = styled.ul`
   grid-auto-rows: auto;
 `;
 
-export const Card = styled.li`
-  padding: 12px;
-  border-radius: 16px;
-  box-shadow: ${({ theme }) => theme.shadows.card};
-  background-color: ${({ theme }) => theme.palette.foreground};
-`;
-
 export const Header = styled.div`
   display: flex;
   align-items: center;
@@ -33,6 +26,7 @@ export const Header = styled.div`
 
 export const AlocationTable = styled.table`
   margin-left: auto;
+  padding-right: 3px;
   color: ${({ theme }) => theme.palette.text};
   td:nth-of-type(1) {
     padding-right: 5px;

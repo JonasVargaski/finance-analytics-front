@@ -17,7 +17,7 @@ export const Container = styled.ul`
       color: ${({ theme }) => theme.palette.text};
       text-decoration: none;
       border-radius: 6px;
-      padding: 8px 12px;
+      padding: 12px 14px;
       transition: background-color 100ms ease-in-out;
 
       &.active {
@@ -27,6 +27,10 @@ export const Container = styled.ul`
 
       &:hover {
         background-color: ${({ theme }) => theme.palette.activeBg};
+      }
+
+      svg {
+        font-size: 1.6rem;
       }
     }
   }

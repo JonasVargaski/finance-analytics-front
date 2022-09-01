@@ -7,7 +7,8 @@ function getWidthGrid(value: string | number) {
   return `width: ${(cols / 12) * 100}%`;
 }
 
-export const Row = styled.div`
+export const Row = styled.div<{ fw?: boolean }>`
+  ${({ fw }) => fw && 'width: 100%'};
   &::after {
     content: '';
     clear: both;

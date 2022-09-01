@@ -1,19 +1,31 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdMoreVert } from 'react-icons/md';
+
+import { useWallets } from '~/hooks/resources/useWallets';
+import { currency, percent } from '~/utils/numberFormat';
+
 import { Flex } from '~/components/Flex';
 import { IconButton } from '~/components/IconButton';
 import { Typography } from '~/components/Typography';
-import { useWallets } from '~/hooks/resources/useWallets';
-import { AlocationPie } from './AlocationPie';
-import { AlocationTable, Card, Container, Header } from './styles';
+import { Card } from '~/components/Generic';
 import { Column, Row } from '~/components/Grid';
-import { currency, percent } from '~/utils/numberFormat';
 import { ColorBadge } from '~/components/ColorBadge';
 import { Tooltip } from '~/components/Tooltip';
+import { Popover } from '~/components/Popover';
+import { Menu, MenuItem } from '~/components/Menu';
+
+import { AlocationTable, Container, Header } from './styles';
+import { SimplePie } from '~/components/Graphs/SimplePie';
 
 export function Wallets() {
   const navigate = useNavigate();
   const { data: wallets } = useWallets({ suspense: true });
+
+  const [selected, setSelected] = useState<{
+    id: string;
+    anchor: HTMLElement | null;
+  }>({ id: '', anchor: null });
 
   return (
     <Container>
@@ -23,9 +35,7 @@ export function Wallets() {
             <h6>{x.name}</h6>
             <Flex>
               <Tooltip placement='top' content='Opções'>
-                <IconButton
-                  onClick={() => navigate(`/wallet/performace/${x.id}`, { state: x.name })}
-                >
+                <IconButton onClick={(e) => setSelected({ id: x.id, anchor: e.currentTarget })}>
                   <MdMoreVert />
                 </IconButton>
               </Tooltip>
@@ -39,13 +49,14 @@ export function Wallets() {
           </Flex>
 
           <Row>
-            <Column xs='5'>
-              <AlocationPie
+            <Column xs='5' style={{ height: 135 }}>
+              <SimplePie
                 data={x.items.map((item) => ({
                   id: item.id,
                   label: item.ticker,
                   value: item.percent,
                   color: item.color,
+                  formattedValue: percent.format(item.percent),
                 }))}
               />
             </Column>
@@ -81,6 +92,34 @@ export function Wallets() {
           </Row>
         </Card>
       ))}
+
+      <Popover
+        anchorEl={selected.anchor}
+        open={!!selected.anchor}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        transformOrigin={{ horizontal: 'right' }}
+        onRequestClose={() => setSelected({ id: '', anchor: null })}
+      >
+        <Menu>
+          <MenuItem
+            onClick={() => {
+              setSelected({ id: '', anchor: null });
+              navigate(`/wallets/${selected.id}/performance`);
+            }}
+          >
+            Ver performace
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setSelected({ id: '', anchor: null });
+              navigate(`/wallet/performace/${selected.id}`);
+            }}
+          >
+            Editar
+          </MenuItem>
+          <MenuItem>Excluir</MenuItem>
+        </Menu>
+      </Popover>
     </Container>
   );
 }

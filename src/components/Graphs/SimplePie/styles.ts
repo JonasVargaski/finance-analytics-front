@@ -1,10 +1,5 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.div`
-  width: 100%;
-  height: 150px;
-`;
-
 export const CustomTip = styled.div`
   background-color: ${({ theme }) => theme.palette.foreground};
   box-shadow: ${({ theme }) => theme.shadows.card};

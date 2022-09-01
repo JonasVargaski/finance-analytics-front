@@ -43,7 +43,7 @@ interface IWalletPerformance {
   }>;
 }
 
-export function useWalletPerformace2({ id, ...options }: QueryOptions = {}): UseQueryResult<
+export function usePerformaceWallet({ id, ...options }: QueryOptions = {}): UseQueryResult<
   IWalletPerformance,
   AxiosError
 > {

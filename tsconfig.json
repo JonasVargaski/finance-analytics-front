@@ -19,7 +19,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noEmit": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
     "incremental": true,
     "baseUrl": ".",
     "paths": {
