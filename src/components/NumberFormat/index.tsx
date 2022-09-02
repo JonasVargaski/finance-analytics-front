@@ -27,7 +27,7 @@ export function NumberFormat({
   ...props
 }: IFormatNumberProps) {
   return (
-    <Container colors={!!colors} isNegative={value < 0} {...props}>
+    <Container className={`format-${format}`} colors={!!colors} isNegative={value < 0} {...props}>
       {showIndicator && value > 0 ? <MdArrowDropUp /> : null}
       {showIndicator && value < 0 ? <MdArrowDropDown /> : null}
       {mapFormatters[format](value)}

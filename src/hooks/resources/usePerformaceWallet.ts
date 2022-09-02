@@ -14,6 +14,7 @@ interface IWalletPerformance {
   appreciationPercent: number;
   netProfit: number;
   transactions: Array<{
+    id: string;
     ticker: string;
     price: number;
     quotas: number;
@@ -26,7 +27,7 @@ interface IWalletPerformance {
     percentProvents: number;
     appreciation: number;
     percentAppreciation: number;
-    resume: {
+    resume: Array<{
       provents: number;
       appreciation: number;
       percentProvents: number;
@@ -35,11 +36,22 @@ interface IWalletPerformance {
       date: string;
       proventDate: string;
       quotationDate: string;
-    }[];
+    }>;
+  }>;
+  groupedTransactions: Array<{
+    ticker: string;
+    averagePrice: number;
+    currentPrice: number;
+    transactions: IWalletPerformance['transactions'];
   }>;
   proventsMonth: Array<{
     date: string;
     value: number;
+  }>;
+  portfolioComposition: Array<{
+    sector: string;
+    amount: number;
+    amountPercent: number;
   }>;
 }
 

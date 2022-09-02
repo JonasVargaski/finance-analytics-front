@@ -3,68 +3,57 @@ import { Column } from '~/components/Grid';
 import { SimplePie } from '~/components/Graphs/SimplePie';
 import { TableInfo } from './styles';
 import { ColorBadge } from '~/components/ColorBadge';
-import { currency } from '~/utils/numberFormat';
+import { currency, percent } from '~/utils/numberFormat';
+import { NumberFormat } from '~/components/NumberFormat';
 
 interface IAlocationTypeProps {
   data: Array<{
-    ticker: string;
-    price: number;
-    quotas: number;
-    date: string;
+    sector: string;
     amount: number;
-    currentPrice: number;
-    netProfit: number;
-    netProfitPercent: number;
-    provents: number;
-    percentProvents: number;
-    appreciation: number;
-    percentAppreciation: number;
+    amountPercent: number;
   }>;
 }
 
 export function AlocationType({ data }: IAlocationTypeProps) {
   return (
     <Flex m='12px 0 0'>
-      <Column sm='5' style={{ height: 180 }}>
+      <Column sm='5' style={{ height: 160 }}>
         <SimplePie
           colors={{ scheme: 'nivo' }}
-          data={
-            data.map((item, i) => ({
-              id: i.toString(),
-              label: item.ticker,
-              value: item.amount,
-              color: '',
-              formattedValue: item.amount.toString(),
-            })) ?? []
-          }
+          data={data.map((item) => ({
+            id: item.sector,
+            label: item.sector,
+            value: item.amount,
+            color: '',
+            formattedValue: percent.format(item.amountPercent),
+          }))}
         />
       </Column>
 
-      <Column xs='7'>
+      <Column xs='7' style={{ margin: 'auto 0 0 auto' }}>
         <TableInfo>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Setor</th>
+              <th>Total</th>
+            </tr>
+          </thead>
           <tbody>
-            {data.map((item, i) => (
-              <tr key={item.ticker + i}>
+            {data.map((item) => (
+              <tr key={item.sector}>
                 <td>
                   <ColorBadge color='#4baaaa' />
                 </td>
                 <td>
-                  <b>{item.ticker}</b>
+                  <b>{item.sector}</b>
                 </td>
                 <td>
-                  <span>{item.netProfit}</span>
-                </td>
-                <td>
-                  <span>{item.quotas * item.price}</span>
+                  <NumberFormat format='percent' value={item.amountPercent} />
+                  <NumberFormat format='currency' value={item.amount} />
                 </td>
               </tr>
             ))}
-            <tr className='totals'>
-              <td />
-              <td />
-              <td>Total:</td>
-              <td>{currency.format(9999)}</td>
-            </tr>
           </tbody>
         </TableInfo>
       </Column>

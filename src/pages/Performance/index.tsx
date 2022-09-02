@@ -5,7 +5,8 @@ import { usePerformaceWallet } from '~/hooks/resources/usePerformaceWallet';
 import { AlocationType } from './AlocationType';
 import { Provents } from './Provents';
 import { ResumeCard } from './ResumeCard';
-import { Container, Totals } from './styles';
+import { Container, Details, Totals } from './styles';
+import { Transactions } from './Transactions';
 
 export function Performance() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export function Performance() {
         />
         <ResumeCard
           title='Proventos'
-          tip={`Total de proventos recebidos provenientes das ações/cotas da carteira.\nA porcentagem se sefere aos proventos recebidos/valor investido até o momento.`}
+          tip={`Total de proventos recebidos provenientes das ações/cotas da carteira.\nA porcentagem se sefere aos proventos recebidos levando em consideração o valor investido.`}
           color='#28a70f'
           value={data?.provents || 0}
           percent={data?.proventsPercent}
@@ -58,18 +59,25 @@ export function Performance() {
 
       <Card style={{ gridArea: 'alocation-graph' }}>
         <Typography variant='cardTitle'>Alocação por setor</Typography>
-        <AlocationType data={data?.transactions ?? []} />
+        <AlocationType data={data?.portfolioComposition ?? []} />
       </Card>
 
       <Card style={{ gridArea: 'alocation-type-graph' }}>
         <Typography variant='cardTitle'>Alocação por ativo</Typography>
-        <AlocationType data={data?.transactions ?? []} />
+        <AlocationType data={data?.portfolioComposition ?? []} />
       </Card>
 
       <Card style={{ gridArea: 'provents-graph' }}>
         <Typography variant='cardTitle'>Proventos</Typography>
         <Provents data={data?.proventsMonth ?? []} />
       </Card>
+
+      <Card style={{ gridArea: 'transactions' }}>
+        <Typography variant='cardTitle'>Transações</Typography>
+        <Transactions data={data?.transactions || []} />
+      </Card>
+
+      <Details>sdd</Details>
     </Container>
   );
 }
