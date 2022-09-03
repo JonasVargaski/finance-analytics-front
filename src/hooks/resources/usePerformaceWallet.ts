@@ -40,16 +40,25 @@ interface IWalletPerformance {
   }>;
   groupedTransactions: Array<{
     ticker: string;
-    averagePrice: number;
+    color: string;
     currentPrice: number;
+    averagePrice: number;
+    averagePricePercent: number;
+    amount: number;
+    amountPercent: number;
+    quotas: number;
+    provents: number;
+    proventsPercent: number;
     transactions: IWalletPerformance['transactions'];
   }>;
   proventsMonth: Array<{
     date: string;
+    formatedDate: string;
     value: number;
   }>;
   portfolioComposition: Array<{
     sector: string;
+    color: string;
     amount: number;
     amountPercent: number;
   }>;

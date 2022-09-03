@@ -64,7 +64,7 @@ export function Transactions({ data }: ITransactionsProps) {
                     <NumberFormat format='currency' value={t.provents} />
                   </>
                 ) : (
-                  '-'
+                  '--'
                 )}
               </td>
               <td>

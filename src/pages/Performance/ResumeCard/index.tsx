@@ -32,7 +32,7 @@ export function ResumeCard({
       </Flex>
 
       <Results>
-        {value && (
+        {value !== undefined && (
           <NumberFormat
             className='currency'
             colors
@@ -41,7 +41,7 @@ export function ResumeCard({
             value={value}
           />
         )}
-        {percent && (
+        {percent !== undefined && (
           <NumberFormat
             className='percent'
             colors

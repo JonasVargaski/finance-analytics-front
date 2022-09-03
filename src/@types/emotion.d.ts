@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import 'react';
 import '@emotion/react';
 
 export interface AppTheme {
@@ -30,12 +29,6 @@ export interface AppTheme {
       background: string;
     };
   };
-}
-
-declare module 'react' {
-  interface Attributes {
-    css?: Interpolation<Theme>;
-  }
 }
 
 declare module '@emotion/react' {

@@ -3,12 +3,13 @@ import { Column } from '~/components/Grid';
 import { SimplePie } from '~/components/Graphs/SimplePie';
 import { TableInfo } from './styles';
 import { ColorBadge } from '~/components/ColorBadge';
-import { currency, percent } from '~/utils/numberFormat';
+import { percent } from '~/utils/numberFormat';
 import { NumberFormat } from '~/components/NumberFormat';
 
 interface IAlocationTypeProps {
   data: Array<{
     sector: string;
+    color: string;
     amount: number;
     amountPercent: number;
   }>;
@@ -19,12 +20,11 @@ export function AlocationType({ data }: IAlocationTypeProps) {
     <Flex m='12px 0 0'>
       <Column sm='5' style={{ height: 160 }}>
         <SimplePie
-          colors={{ scheme: 'nivo' }}
           data={data.map((item) => ({
             id: item.sector,
             label: item.sector,
             value: item.amount,
-            color: '',
+            color: item.color,
             formattedValue: percent.format(item.amountPercent),
           }))}
         />
@@ -43,7 +43,7 @@ export function AlocationType({ data }: IAlocationTypeProps) {
             {data.map((item) => (
               <tr key={item.sector}>
                 <td>
-                  <ColorBadge color='#4baaaa' />
+                  <ColorBadge color={item.color} />
                 </td>
                 <td>
                   <b>{item.sector}</b>

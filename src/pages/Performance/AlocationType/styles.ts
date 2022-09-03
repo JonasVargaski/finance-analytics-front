@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 export const TableInfo = styled.table`
   margin-left: auto;
   padding-right: 3px;
-  font-size: 1.03rem;
   color: ${({ theme }) => theme.palette.text};
 
   thead {

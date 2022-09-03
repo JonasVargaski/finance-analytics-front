@@ -1,20 +1,10 @@
 import { ResponsiveBar } from '@nivo/bar';
-import { format, parseISO } from 'date-fns';
 import { Flex } from '~/components/Flex';
-
-// const data = [
-//   { country: 'AD', fries: 129, friesColor: 'hsl(95, 70%, 50%)' },
-//   { country: 'AE', fries: 18, friesColor: 'hsl(5, 70%, 50%)' },
-//   { country: 'AF', fries: 187, friesColor: 'hsl(258, 70%, 50%)' },
-//   { country: 'AG', fries: 28, friesColor: 'hsl(267, 70%, 50%)' },
-//   { country: 'AI', fries: 20, friesColor: 'hsl(201, 70%, 50%)' },
-//   { country: 'AL', fries: 90, friesColor: 'hsl(255, 70%, 50%)' },
-//   { country: 'AM', fries: 145, friesColor: 'hsl(235, 70%, 50%)' },
-// ];
 
 interface IProventsProps {
   data: Array<{
     date: string;
+    formatedDate: string;
     value: number;
   }>;
 }
@@ -28,7 +18,7 @@ export function Provents({ data }: IProventsProps) {
           value: x.value.toFixed(2),
         }))}
         keys={['value']}
-        indexBy='date'
+        indexBy='formatedDate'
         padding={0.3}
         margin={{ top: 10, right: 10, bottom: 50, left: 50 }}
         valueScale={{ type: 'linear' }}

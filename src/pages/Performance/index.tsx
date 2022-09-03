@@ -2,7 +2,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Card } from '~/components/Generic';
 import { Typography } from '~/components/Typography';
 import { usePerformaceWallet } from '~/hooks/resources/usePerformaceWallet';
+import { AlocationActives } from './AlocationActives';
 import { AlocationType } from './AlocationType';
+import { Detailed } from './Detailed';
 import { Provents } from './Provents';
 import { ResumeCard } from './ResumeCard';
 import { Container, Details, Totals } from './styles';
@@ -64,7 +66,7 @@ export function Performance() {
 
       <Card style={{ gridArea: 'alocation-type-graph' }}>
         <Typography variant='cardTitle'>Alocação por ativo</Typography>
-        <AlocationType data={data?.portfolioComposition ?? []} />
+        <AlocationActives data={data?.groupedTransactions ?? []} />
       </Card>
 
       <Card style={{ gridArea: 'provents-graph' }}>
@@ -77,7 +79,11 @@ export function Performance() {
         <Transactions data={data?.transactions || []} />
       </Card>
 
-      <Details>sdd</Details>
+      <Details>
+        {data?.groupedTransactions.map((group) => (
+          <Detailed key={group.ticker} data={group} />
+        ))}
+      </Details>
     </Container>
   );
 }

@@ -5,6 +5,7 @@ type Variants = keyof typeof variants;
 interface ITypographyProps {
   children: React.ReactNode;
   variant: Variants;
+  className?: string;
 }
 
 export function Typography({ variant, children, ...props }: ITypographyProps) {
