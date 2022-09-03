@@ -11,7 +11,7 @@ export const IconButton = styled((props: React.HTMLProps<HTMLButtonElement>) => 
   flex: 0 0 auto;
   color: inherit;
   border-radius: 50%;
-  padding: 5px;
+  padding: 6px;
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
   > svg {
@@ -20,15 +20,11 @@ export const IconButton = styled((props: React.HTMLProps<HTMLButtonElement>) => 
   }
 
   &:hover:not(:disabled) {
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: ${({ theme }) => theme.palette.activeBg};
   }
 
-  &:active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  &:hover:not(:disabled):not(:active) {
-    filter: brightness(113%);
+  &:not(:disabled):active {
+    filter: brightness(90%);
   }
 
   &:disabled {

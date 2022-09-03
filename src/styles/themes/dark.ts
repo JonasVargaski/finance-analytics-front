@@ -1,20 +1,20 @@
 import { AppTheme } from '~/@types/emotion';
 
-export const lightTheme: AppTheme = {
+export const darkTheme: AppTheme = {
   palette: {
-    title: '#06152B',
-    text: '#809FB8',
-    activeText: '#384455',
-    divider: '#e8e8e8',
+    title: '#dbdbdb',
+    text: '#9b9b9b',
+    activeText: '#ffffff',
+    divider: '#333',
     info: '#FE6BBA',
-    background: '#f1f1f1',
-    foreground: '#fbfbfb',
-    activeBg: '#F1F5F7',
+    background: '#121212',
+    foreground: '#1e1e1e',
+    activeBg: '#333',
     primary: '#217EFD',
     primaryLight: 'rgba(33, 126, 253, 0.298039)',
-    success: '#02da02',
+    success: '#19ad05',
     successLight: 'rgba(26, 213, 152, 0.2)',
-    warning: '#FFB536',
+    warning: '#e98e0e',
     warningLight: 'rgba(255, 181, 54, 0.298039)',
     danger: '#F3654A',
     dangerLight: 'rgba(243, 101, 74, 0.298039)',
@@ -28,7 +28,7 @@ export const lightTheme: AppTheme = {
       background: '#616161e6',
     },
     table: {
-      stripBg: '#f4f4f4',
+      stripBg: '#242424',
     },
   },
 };

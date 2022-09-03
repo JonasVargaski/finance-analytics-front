@@ -26,7 +26,7 @@ export const Container = styled.div`
         white-space: nowrap;
         transition: background-color 85ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
         &:nth-of-type(even) {
-          background-color: #f4f4f4;
+          background-color: ${({ theme }) => theme.components.table.stripBg};
         }
         &:hover {
           background-color: ${({ theme }) => theme.palette.activeBg};

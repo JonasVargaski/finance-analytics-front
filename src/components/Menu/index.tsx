@@ -21,10 +21,10 @@ export const MenuItem = styled.li`
   transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: ${({ theme }) => theme.palette.activeBg};
   }
 
   &:hover:active {
-    background-color: rgba(0, 0, 0, 0.1);
+    filter: brightness(95%);
   }
 `;

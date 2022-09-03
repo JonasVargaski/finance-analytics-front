@@ -28,6 +28,9 @@ export interface AppTheme {
       color: string;
       background: string;
     };
+    table: {
+      stripBg: string;
+    };
   };
 }
 

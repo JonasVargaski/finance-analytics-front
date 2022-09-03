@@ -9,8 +9,13 @@ import { Typography } from '~/components/Typography';
 
 import { NavItems } from './NavItems';
 import { Container, Header, Main, NavSidebar } from './styles';
+import { useLocalStorage } from '~/hooks/useLocalStorage';
 
 export function AppLayout() {
+  const [theme, setTheme] = useLocalStorage<{ theme: 'light' | 'dark' }>('theme', {
+    theme: 'light',
+  });
+
   return (
     <Container>
       <Header>
@@ -19,7 +24,11 @@ export function AppLayout() {
           <IconButton>
             <MdMailOutline />
           </IconButton>
-          <IconButton>
+          <IconButton
+            onClick={() =>
+              setTheme(theme.theme === 'light' ? { theme: 'dark' } : { theme: 'light' })
+            }
+          >
             <MdOutlineSettings />
           </IconButton>
         </Flex>

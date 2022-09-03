@@ -1,14 +1,18 @@
 import { ThemeProvider as EmotionThemeProvider, Global } from '@emotion/react';
 import { globalStyles } from './global';
 import { lightTheme } from './themes/light';
+import { darkTheme } from './themes/dark';
+import { useLocalStorage } from '~/hooks/useLocalStorage';
 
 interface IThemeProviderProps {
   children?: React.ReactNode;
 }
 
 export function ThemeProvider({ children }: IThemeProviderProps) {
+  const [current] = useLocalStorage<{ theme: 'light' | 'dark' }>('theme', { theme: 'light' });
+
   return (
-    <EmotionThemeProvider theme={lightTheme}>
+    <EmotionThemeProvider theme={current.theme === 'light' ? lightTheme : darkTheme}>
       <>
         <Global styles={globalStyles} />
         {children}
