@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdMoreVert } from 'react-icons/md';
 
@@ -26,6 +26,14 @@ export function Wallets() {
     id: string;
     anchor: HTMLElement | null;
   }>({ id: '', anchor: null });
+
+  const navigateTo = useCallback(
+    (to: string) => {
+      setSelected({ id: '', anchor: null });
+      setTimeout(() => navigate(to));
+    },
+    [navigate],
+  );
 
   return (
     <Container>
@@ -95,26 +103,16 @@ export function Wallets() {
 
       <Popover
         anchorEl={selected.anchor}
-        open={!!selected.anchor}
+        open={!!selected.id}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         transformOrigin={{ horizontal: 'right' }}
         onRequestClose={() => setSelected({ id: '', anchor: null })}
       >
         <Menu>
-          <MenuItem
-            onClick={() => {
-              setSelected({ id: '', anchor: null });
-              navigate(`/wallets/${selected.id}/performance`);
-            }}
-          >
+          <MenuItem onClick={() => navigateTo(`/wallets/${selected.id}/performance`)}>
             Ver performace
           </MenuItem>
-          <MenuItem
-            onClick={() => {
-              setSelected({ id: '', anchor: null });
-              navigate(`/wallet/performace/${selected.id}`);
-            }}
-          >
+          <MenuItem onClick={() => navigateTo(`/wallet/performace/${selected.id}`)}>
             Editar
           </MenuItem>
           <MenuItem>Excluir</MenuItem>

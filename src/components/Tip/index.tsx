@@ -10,7 +10,7 @@ interface ITipProps extends Omit<ITooltipProps, 'content' | 'children' | 'placem
 export function Tip({ children, placement, ...props }: ITipProps) {
   return (
     <Tooltip content={children} placement={placement || 'top-start'} {...props}>
-      <TipContainer>
+      <TipContainer className='tip'>
         <MdInfoOutline />
       </TipContainer>
     </Tooltip>

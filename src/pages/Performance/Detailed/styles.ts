@@ -125,6 +125,16 @@ export const TransactionTable = styled.table`
         }
       }
 
+      td .tip {
+        padding-left: 2px;
+        position: relative;
+        top: 1.5px;
+        svg {
+          position: relative;
+          font-size: 0.92rem;
+        }
+      }
+
       td:first-of-type {
         text-transform: capitalize;
         padding-left: 8px;

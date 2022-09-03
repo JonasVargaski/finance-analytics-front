@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { extractElementRect, IElementRect } from '~/utils/extractElementRect';
 import { useOnClickOutside } from '~/hooks/useOnClickOutside';
@@ -105,7 +105,7 @@ export function Popover({
 }: IPopoverProps) {
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let timer = 0;
 
     if (open) {

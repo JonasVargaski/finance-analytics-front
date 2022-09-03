@@ -35,8 +35,6 @@ interface IDetailedProps {
       netProfitPercent: number;
       provents: number;
       percentProvents: number;
-      appreciation: number;
-      percentAppreciation: number;
       resume: Array<{
         provents: number;
         appreciation: number;
@@ -45,7 +43,6 @@ interface IDetailedProps {
         received: boolean;
         date: string;
         proventDate: string;
-        quotationDate: string;
       }>;
     }>;
   };
@@ -53,7 +50,6 @@ interface IDetailedProps {
 
 export function Detailed({ data }: IDetailedProps) {
   const [open, setOpen] = useState(false);
-  console.log(data);
 
   return (
     <Container>
@@ -62,7 +58,7 @@ export function Detailed({ data }: IDetailedProps) {
         <Tooltip
           enterDelay={350}
           placement='top'
-          content={open ? 'Ocultar resumo' : 'Exibir resumo por transação'}
+          content={open ? 'Ocultar resumo' : 'Exibir resumo'}
         >
           <IconButton onClick={() => setOpen((old) => !old)}>
             <MdExpandMore />
@@ -140,6 +136,12 @@ export function Detailed({ data }: IDetailedProps) {
                       <td css={(t) => ({ color: !resume.received ? t.palette.primary : '' })}>
                         <NumberFormat format='percent' value={resume.percentProvents} />
                         <NumberFormat format='currency' value={resume.provents} />
+                        {!resume.received && (
+                          <Tip>
+                            Provento registrado com data de pagamento prevista para{' '}
+                            <b>{format(parseISO(resume.proventDate), 'dd/MM/yyyy')}</b>
+                          </Tip>
+                        )}
                       </td>
                     ) : (
                       <td style={{ textAlign: 'center' }}>--</td>
