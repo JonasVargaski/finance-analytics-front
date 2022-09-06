@@ -41,6 +41,7 @@ export const TableInfo = styled.table`
   }
   td:nth-of-type(3) {
     text-align: center;
+    padding: 0 24px 0 14px;
   }
   td:nth-of-type(4) {
     text-align: end;

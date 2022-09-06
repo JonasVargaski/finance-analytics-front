@@ -27,7 +27,7 @@ export function Transactions({ data }: ITransactionsProps) {
           <tr>
             <th>Ticker</th>
             <th>Data compra</th>
-            <th>Quantidade</th>
+            <th>Cotas</th>
             <th>Valor compra</th>
             <th>Valor atual</th>
             <th>Valorização</th>

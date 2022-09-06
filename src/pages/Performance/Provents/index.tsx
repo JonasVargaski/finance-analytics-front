@@ -1,6 +1,9 @@
-import { useTheme } from '@emotion/react';
 import { useMemo } from 'react';
+import { useTheme } from '@emotion/react';
+import { format, parse } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import { Bar } from 'react-chartjs-2';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {
   Chart as ChartJS,
   ChartData,
@@ -12,10 +15,8 @@ import {
 
 import { Flex } from '~/components/Flex';
 import { currency } from '~/utils/numberFormat';
-import { format, parse } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, ChartDataLabels);
 
 interface IProventsProps {
   data: Array<{
@@ -37,6 +38,7 @@ export function Provents({ data }: IProventsProps) {
           label: 'Valor',
           backgroundColor: theme.palette.warning,
           borderWidth: 0,
+          borderRadius: 3,
         },
       ],
     };
@@ -51,6 +53,15 @@ export function Provents({ data }: IProventsProps) {
           maintainAspectRatio: false,
           layout: { padding: 0 },
           plugins: {
+            datalabels: {
+              formatter: (value) => currency.format(value),
+              color: theme.palette.text,
+              font: { weight: 'bold' },
+              anchor: 'end',
+              align: 'end',
+              offset: -1,
+              rotation: (ctx) => ctx.chart.scales.x.labelRotation * -1.2,
+            },
             legend: { display: false },
             tooltip: {
               displayColors: false,

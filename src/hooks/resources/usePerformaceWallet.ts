@@ -55,6 +55,8 @@ interface IWalletPerformance {
     date: string;
     formatedDate: string;
     value: number;
+    amount: number;
+    dy: number;
   }>;
   portfolioComposition: Array<{
     sector: string;

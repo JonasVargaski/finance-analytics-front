@@ -32,6 +32,7 @@ export function AlocationType({ data }: IAlocationTypeProps) {
           backgroundColor: data.map((x) => x.color),
           borderWidth: 0,
           hoverOffset: 12,
+          borderRadius: 4,
         },
       ],
     };
@@ -44,10 +45,11 @@ export function AlocationType({ data }: IAlocationTypeProps) {
           ref={chartRef}
           data={charData}
           options={{
-            spacing: 1.5,
+            spacing: 0.2,
             responsive: true,
             layout: { padding: 10 },
             plugins: {
+              datalabels: { display: false },
               legend: { display: false },
               tooltip: {
                 callbacks: {

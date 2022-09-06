@@ -35,6 +35,7 @@ export function AlocationActives({ data }: IAlocationActivesProps) {
           backgroundColor: data.map((x) => x.color),
           borderWidth: 0,
           hoverOffset: 12,
+          borderRadius: 4,
         },
       ],
     };
@@ -47,10 +48,11 @@ export function AlocationActives({ data }: IAlocationActivesProps) {
           ref={chartRef}
           data={charData}
           options={{
-            spacing: 1.5,
+            spacing: 0.2,
             responsive: true,
             layout: { padding: 10 },
             plugins: {
+              datalabels: { display: false },
               legend: { display: false },
               tooltip: {
                 callbacks: {
@@ -68,7 +70,7 @@ export function AlocationActives({ data }: IAlocationActivesProps) {
             <tr>
               <th></th>
               <th>Ticker</th>
-              <th>Quantidade</th>
+              <th>Cotas</th>
               <th>Total</th>
             </tr>
           </thead>

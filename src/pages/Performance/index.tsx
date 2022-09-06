@@ -33,15 +33,14 @@ export function Performance() {
           tip={`Valor investido levando em consideração a valorização dos ativos.\nNão inclui os proventos recebidos.`}
           color='#878588'
           value={(data?.amout || 0) + (data?.appreciation || 0)}
-          percent={data?.appreciationPercent}
-          indicatorPercent
         />
         <ResumeCard
           title='Valorização dos ativos'
           tip='Lucro/Prejuízo atual bruto em caso da venda total de seus ativos.'
           color='#878588'
           value={data?.appreciation || 0}
-          indicatorValue
+          percent={data?.appreciationPercent}
+          indicatorPercent
         />
         <ResumeCard
           title='Proventos'
