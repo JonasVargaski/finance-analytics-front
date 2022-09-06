@@ -16,7 +16,6 @@ import { Popover } from '~/components/Popover';
 import { Menu, MenuItem } from '~/components/Menu';
 
 import { AlocationTable, Container, Header } from './styles';
-import { SimplePie } from '~/components/Graphs/SimplePie';
 
 export function Wallets() {
   const navigate = useNavigate();
@@ -58,15 +57,7 @@ export function Wallets() {
 
           <Row>
             <Column xs='5' style={{ height: 135 }}>
-              <SimplePie
-                data={x.items.map((item) => ({
-                  id: item.id,
-                  label: item.ticker,
-                  value: item.percent,
-                  color: item.color,
-                  formattedValue: percent.format(item.percent),
-                }))}
-              />
+              Pie chart
             </Column>
 
             <Column xs='7'>

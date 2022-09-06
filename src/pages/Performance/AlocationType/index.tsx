@@ -1,11 +1,16 @@
+import { Chart as ChartJS, ArcElement, Tooltip, ChartData } from 'chart.js';
+import { ChartJSOrUndefined } from 'react-chartjs-2/dist/types';
+import { useMemo, useRef } from 'react';
+import { Doughnut } from 'react-chartjs-2';
+
 import { Flex } from '~/components/Flex';
 import { Column } from '~/components/Grid';
-import { SimplePie } from '~/components/Graphs/SimplePie';
 import { TableInfo } from './styles';
 import { ColorBadge } from '~/components/ColorBadge';
-import { percent } from '~/utils/numberFormat';
 import { NumberFormat } from '~/components/NumberFormat';
+import { percent } from '~/utils/numberFormat';
 
+ChartJS.register(ArcElement, Tooltip);
 interface IAlocationTypeProps {
   data: Array<{
     sector: string;
@@ -16,17 +21,41 @@ interface IAlocationTypeProps {
 }
 
 export function AlocationType({ data }: IAlocationTypeProps) {
+  const chartRef = useRef<ChartJSOrUndefined<'doughnut', number[], unknown>>(null);
+
+  const charData = useMemo<ChartData<'doughnut'>>(() => {
+    return {
+      labels: data.map((x) => x.sector),
+      datasets: [
+        {
+          data: data.map((x) => x.amountPercent),
+          backgroundColor: data.map((x) => x.color),
+          borderWidth: 0,
+          hoverOffset: 12,
+        },
+      ],
+    };
+  }, [data]);
+
   return (
-    <Flex m='12px 0 0'>
-      <Column sm='5' style={{ height: 160 }}>
-        <SimplePie
-          data={data.map((item) => ({
-            id: item.sector,
-            label: item.sector,
-            value: item.amount,
-            color: item.color,
-            formattedValue: percent.format(item.amountPercent),
-          }))}
+    <Flex>
+      <Column sm='5' style={{ padding: '12px 30px' }}>
+        <Doughnut
+          ref={chartRef}
+          data={charData}
+          options={{
+            spacing: 1.5,
+            responsive: true,
+            layout: { padding: 10 },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: (item) => `${item.label}: ${percent.format(item.parsed)}`,
+                },
+              },
+            },
+          }}
         />
       </Column>
 

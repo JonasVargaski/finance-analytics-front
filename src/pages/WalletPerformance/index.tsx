@@ -1,7 +1,6 @@
 import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { Column, Row } from '~/components/Grid';
 import { useWalletPerformace } from '~/hooks/resources/useWalletPerformace';
 import { currency, percent } from '~/utils/numberFormat';
 
@@ -56,18 +55,6 @@ export function WalletPerformance({ children }: IWalletPerformanceProps) {
   return (
     <div>
       <h3>Resultados da carteira &quot;{state as string}&quot;</h3>
-
-      <Row>
-        <Column style={{ background: 'red' }} lg='3'>
-          1
-        </Column>
-        <Column style={{ background: 'blue' }} lg='3'>
-          2
-        </Column>
-        <Column style={{ background: 'pink' }} lg='3'>
-          3
-        </Column>
-      </Row>
 
       <table
         style={{
