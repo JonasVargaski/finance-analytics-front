@@ -80,6 +80,17 @@ export function Detailed({ data }: IDetailedProps) {
             <tr>
               <td>Cotas:</td>
               <td>{data.quotas}</td>
+              <td>Proventos:</td>
+              <td>
+                <NumberFormat format='currency' value={data.provents} />
+                <NumberFormat format='percent' value={data.proventsPercent} />
+              </td>
+            </tr>
+            <tr>
+              <td>Cotação:</td>
+              <td>
+                <NumberFormat format='currency' value={data.currentPrice} />
+              </td>
               <td>Preço médio:</td>
               <td>
                 <NumberFormat format='currency' value={data.averagePrice} />
@@ -89,17 +100,6 @@ export function Detailed({ data }: IDetailedProps) {
                   format='percent'
                   value={data.averagePricePercent}
                 />
-              </td>
-            </tr>
-            <tr>
-              <td>Cotação:</td>
-              <td>
-                <NumberFormat format='currency' value={data.currentPrice} />
-              </td>
-              <td>Proventos:</td>
-              <td>
-                <NumberFormat format='currency' value={data.provents} />
-                <NumberFormat format='percent' value={data.proventsPercent} />
               </td>
             </tr>
           </tbody>

@@ -1,6 +1,5 @@
 import { Chart as ChartJS, ArcElement, Tooltip, ChartData } from 'chart.js';
-import { ChartJSOrUndefined } from 'react-chartjs-2/dist/types';
-import { useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
 import { ColorBadge } from '~/components/ColorBadge';
@@ -24,8 +23,6 @@ interface IAlocationActivesProps {
 }
 
 export function AlocationActives({ data }: IAlocationActivesProps) {
-  const chartRef = useRef<ChartJSOrUndefined<'doughnut', number[], unknown>>(null);
-
   const charData = useMemo<ChartData<'doughnut'>>(() => {
     return {
       labels: data.map((x) => x.ticker),
@@ -45,7 +42,6 @@ export function AlocationActives({ data }: IAlocationActivesProps) {
     <Flex>
       <Column sm='5' style={{ padding: '12px 30px' }}>
         <Doughnut
-          ref={chartRef}
           data={charData}
           options={{
             spacing: 0.2,
@@ -55,9 +51,7 @@ export function AlocationActives({ data }: IAlocationActivesProps) {
               datalabels: { display: false },
               legend: { display: false },
               tooltip: {
-                callbacks: {
-                  label: (item) => `${item.label}: ${percent.format(item.parsed)}`,
-                },
+                callbacks: { label: (item) => `${item.label}: ${percent.format(item.parsed)}` },
               },
             },
           }}

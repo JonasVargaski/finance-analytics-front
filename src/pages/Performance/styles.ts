@@ -7,6 +7,7 @@ export const Container = styled.div`
     'alocation-graph alocation-graph totals'
     'alocation-type-graph alocation-type-graph totals'
     'provents-graph provents-graph provents-graph'
+    'dy-graph dy-graph dy-graph'
     'transactions transactions transactions'
     'details details details';
   grid-auto-rows: auto;
@@ -17,6 +18,7 @@ export const Container = styled.div`
     grid-template-areas:
       'alocation-graph alocation-type-graph totals'
       'provents-graph provents-graph totals'
+      'dy-graph dy-graph dy-graph'
       'transactions transactions transactions'
       'details details details';
     align-items: flex-start;

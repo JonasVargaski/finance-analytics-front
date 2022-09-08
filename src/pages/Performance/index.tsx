@@ -5,6 +5,7 @@ import { usePerformaceWallet } from '~/hooks/resources/usePerformaceWallet';
 import { AlocationActives } from './AlocationActives';
 import { AlocationType } from './AlocationType';
 import { Detailed } from './Detailed';
+import { DividendYield } from './DividendYield';
 import { Provents } from './Provents';
 import { ResumeCard } from './ResumeCard';
 import { Container, Details, Totals } from './styles';
@@ -71,6 +72,11 @@ export function Performance() {
       <Card style={{ gridArea: 'provents-graph' }}>
         <Typography variant='cardTitle'>Proventos</Typography>
         <Provents data={data?.proventsMonth ?? []} />
+      </Card>
+
+      <Card style={{ gridArea: 'dy-graph' }}>
+        <Typography variant='cardTitle'>Dividend Yield</Typography>
+        <DividendYield data={data?.proventsMonth ?? []} />
       </Card>
 
       <Card style={{ gridArea: 'transactions' }}>

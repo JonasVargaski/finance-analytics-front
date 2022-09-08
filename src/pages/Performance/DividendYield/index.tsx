@@ -2,67 +2,74 @@ import { useMemo } from 'react';
 import { useTheme } from '@emotion/react';
 import { format, parse } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {
   Chart as ChartJS,
-  ChartData,
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Tooltip,
+  ChartData,
 } from 'chart.js';
 
 import { Flex } from '~/components/Flex';
-import { currency } from '~/utils/numberFormat';
+import { currency, percent } from '~/utils/numberFormat';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, ChartDataLabels);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, ChartDataLabels);
 
-interface IProventsProps {
+interface IDividendYieldProps {
   data: Array<{
-    date: string;
     formatedDate: string;
-    value: number;
     amount: number;
+    dy: number;
   }>;
 }
+ChartJS.overrides.line.spanGaps = true;
 
-export function Provents({ data }: IProventsProps) {
+export function DividendYield({ data }: IDividendYieldProps) {
   const theme = useTheme();
 
-  const charData = useMemo<ChartData<'bar'>>(() => {
+  const charData = useMemo<ChartData<'line'>>(() => {
     return {
       labels: data.map((x) => x.formatedDate),
       datasets: [
         {
-          data: data.map((x) => x.value),
+          data: data.map((x) => x.dy),
+          amount: data.map((x) => x.amount),
           label: 'Valor',
-          backgroundColor: theme.palette.warning,
-          borderColor: theme.palette.warningLight,
-          borderWidth: 0.5,
-          borderRadius: 3,
+          backgroundColor: theme.palette.primary,
+          borderColor: theme.palette.primary,
+          pointRadius: 2,
+          borderWidth: 1.2,
         },
       ],
     };
   }, [data, theme]);
 
   return (
-    <Flex p='12px 0 0' style={{ height: 250 }}>
-      <Bar
+    <Flex p='6px 0 0' style={{ height: 180 }}>
+      <Line
         data={charData}
         options={{
           responsive: true,
           maintainAspectRatio: false,
-          layout: { padding: 0 },
+          layout: {
+            padding: {
+              left: -10,
+              right: 0,
+            },
+          },
           plugins: {
             datalabels: {
-              formatter: (value) => currency.format(value),
+              formatter: (value) => percent.format(value),
               color: theme.palette.text,
               font: { weight: 'bold' },
-              anchor: 'end',
+              anchor: 'center',
               align: 'end',
-              offset: -1,
-              rotation: (ctx) => ctx.chart.scales.x.labelRotation * -2,
+              offset: 0,
+              rotation: (ctx) => ctx.chart.scales.x.labelRotation * -1.2,
             },
             legend: { display: false },
             tooltip: {
@@ -78,9 +85,18 @@ export function Provents({ data }: IProventsProps) {
                   )}`;
                   return formated.charAt(0).toUpperCase() + formated.slice(1);
                 },
-                label: (item) => `Valor: ${currency.format(Number(item.raw))}`,
+                label: (item) => `Yield: ${percent.format(Number(item.raw))}`,
+                afterLabel: (item) => {
+                  type DatasetAmount = { amount: number[] };
+                  const { amount } = item.dataset as unknown as DatasetAmount;
+                  return `Valor: ${currency.format(amount[item.dataIndex])}`;
+                },
               },
             },
+          },
+          interaction: {
+            mode: 'nearest',
+            intersect: false,
           },
           scales: {
             x: {
@@ -89,10 +105,10 @@ export function Provents({ data }: IProventsProps) {
             },
             y: {
               type: 'linear',
-              grace: '30%',
+              grace: '10%',
               beginAtZero: true,
               grid: { color: theme.palette.divider, borderDash: [3] },
-              ticks: { color: theme.palette.text },
+              ticks: { color: theme.palette.text, padding: 12 },
             },
           },
         }}
