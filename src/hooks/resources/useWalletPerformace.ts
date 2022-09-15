@@ -2,42 +2,76 @@ import { UseQueryOptions, useQuery, UseQueryResult } from '@tanstack/react-query
 import { AxiosError } from 'axios';
 import { api } from '~/services/apiClient';
 
-interface QueryOptions extends UseQueryOptions<IResultData[], AxiosError> {
+interface QueryOptions extends UseQueryOptions<IWalletPerformance, AxiosError> {
   id?: string;
 }
 
-interface IResultData {
-  ticker: string;
-  price: number;
-  quotas: number;
-  date: string;
-  amount: number;
-  currentPrice: number;
-  netProfit: number;
-  netProfitPercent: number;
+interface IWalletPerformance {
+  amout: number;
   provents: number;
-  percentProvents: number;
+  proventsPercent: number;
   appreciation: number;
-  percentAppreciation: number;
-  resume: {
-    provents: number;
-    appreciation: number;
-    percentProvents: number;
-    percentAppreciation: number;
+  appreciationPercent: number;
+  netProfit: number;
+  transactions: Array<{
+    id: string;
+    ticker: string;
+    price: number;
+    quotas: number;
     date: string;
-    proventDate: string;
-    quotationDate: string;
-  }[];
+    amount: number;
+    currentPrice: number;
+    netProfit: number;
+    netProfitPercent: number;
+    provents: number;
+    percentProvents: number;
+    appreciation: number;
+    percentAppreciation: number;
+    resume: Array<{
+      provents: number;
+      appreciation: number;
+      percentProvents: number;
+      percentAppreciation: number;
+      received: boolean;
+      date: string;
+      proventDate: string;
+      quotationDate: string;
+    }>;
+  }>;
+  groupedTransactions: Array<{
+    ticker: string;
+    currentPrice: number;
+    averagePrice: number;
+    averagePricePercent: number;
+    amount: number;
+    amountPercent: number;
+    quotas: number;
+    provents: number;
+    proventsPercent: number;
+    transactions: IWalletPerformance['transactions'];
+  }>;
+  proventsMonth: Array<{
+    date: string;
+    formatedDate: string;
+    value: number;
+    amount: number;
+    dy: number;
+  }>;
+  portfolioComposition: Array<{
+    sector: string;
+    amount: number;
+    amountPercent: number;
+  }>;
 }
 
 export function useWalletPerformace({ id, ...options }: QueryOptions = {}): UseQueryResult<
-  IResultData[],
+  IWalletPerformance,
   AxiosError
 > {
-  return useQuery<IResultData[], AxiosError>(
+  return useQuery<IWalletPerformance, AxiosError>(
     ['wallet-performance', id],
     async () => {
-      const { data } = await api.get<IResultData[]>(`/wallet/performance/${id}`);
+      const { data } = await api.get<IWalletPerformance>(`/wallets/performance?id=${id}`);
       return data;
     },
     options,

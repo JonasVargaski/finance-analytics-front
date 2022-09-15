@@ -31,6 +31,7 @@ export interface AppTheme {
     table: {
       stripBg: string;
     };
+    chartColors: string[];
   };
 }
 

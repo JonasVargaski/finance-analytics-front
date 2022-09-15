@@ -1,27 +1,26 @@
+import { useMemo } from 'react';
+import { useTheme } from '@emotion/react';
 import { Chart as ChartJS, ArcElement, Tooltip, ChartData } from 'chart.js';
-import { ChartJSOrUndefined } from 'react-chartjs-2/dist/types';
-import { useMemo, useRef } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
 import { Flex } from '~/components/Flex';
 import { Column } from '~/components/Grid';
-import { TableInfo } from './styles';
 import { ColorBadge } from '~/components/ColorBadge';
 import { NumberFormat } from '~/components/NumberFormat';
 import { percent } from '~/utils/numberFormat';
+import { TableInfo } from './styles';
 
 ChartJS.register(ArcElement, Tooltip);
 interface IAlocationTypeProps {
   data: Array<{
     sector: string;
-    color: string;
     amount: number;
     amountPercent: number;
   }>;
 }
 
 export function AlocationType({ data }: IAlocationTypeProps) {
-  const chartRef = useRef<ChartJSOrUndefined<'doughnut', number[], unknown>>(null);
+  const theme = useTheme();
 
   const charData = useMemo<ChartData<'doughnut'>>(() => {
     return {
@@ -29,20 +28,19 @@ export function AlocationType({ data }: IAlocationTypeProps) {
       datasets: [
         {
           data: data.map((x) => x.amountPercent),
-          backgroundColor: data.map((x) => x.color),
+          backgroundColor: data.map((_, i) => theme.components.chartColors[i]),
           borderWidth: 0,
           hoverOffset: 12,
           borderRadius: 4,
         },
       ],
     };
-  }, [data]);
+  }, [data, theme]);
 
   return (
     <Flex>
       <Column sm='5' style={{ padding: '12px 30px' }}>
         <Doughnut
-          ref={chartRef}
           data={charData}
           options={{
             spacing: 0.2,
@@ -71,10 +69,10 @@ export function AlocationType({ data }: IAlocationTypeProps) {
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
+            {data.map((item, i) => (
               <tr key={item.sector}>
                 <td>
-                  <ColorBadge color={item.color} />
+                  <ColorBadge color={theme.components.chartColors[i]} />
                 </td>
                 <td>
                   <b>{item.sector}</b>

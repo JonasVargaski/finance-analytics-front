@@ -1,7 +1,9 @@
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { Card } from '~/components/Generic';
 import { Typography } from '~/components/Typography';
-import { usePerformaceWallet } from '~/hooks/resources/usePerformaceWallet';
+import { useWalletPerformace } from '~/hooks/resources/useWalletPerformace';
+
 import { AlocationActives } from './AlocationActives';
 import { AlocationType } from './AlocationType';
 import { Detailed } from './Detailed';
@@ -16,7 +18,7 @@ export function Performance() {
   const { id } = useParams();
   if (!id) navigate('/wallets');
 
-  const { data } = usePerformaceWallet({ id, suspense: true, enabled: !!id });
+  const { data } = useWalletPerformace({ id, suspense: true, enabled: !!id });
 
   console.log(data);
 
