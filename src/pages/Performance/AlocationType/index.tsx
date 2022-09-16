@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { useTheme } from '@emotion/react';
 import { Chart as ChartJS, ArcElement, Tooltip, ChartData } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
@@ -9,6 +8,7 @@ import { ColorBadge } from '~/components/ColorBadge';
 import { NumberFormat } from '~/components/NumberFormat';
 import { percent } from '~/utils/numberFormat';
 import { TableInfo } from './styles';
+import { useColors } from '~/hooks/useColors';
 
 ChartJS.register(ArcElement, Tooltip);
 interface IAlocationTypeProps {
@@ -20,7 +20,7 @@ interface IAlocationTypeProps {
 }
 
 export function AlocationType({ data }: IAlocationTypeProps) {
-  const theme = useTheme();
+  const getColor = useColors('pallete2');
 
   const charData = useMemo<ChartData<'doughnut'>>(() => {
     return {
@@ -28,14 +28,14 @@ export function AlocationType({ data }: IAlocationTypeProps) {
       datasets: [
         {
           data: data.map((x) => x.amountPercent),
-          backgroundColor: data.map((_, i) => theme.components.chartColors[i]),
+          backgroundColor: data.map((_, i) => getColor(i)),
           borderWidth: 0,
           hoverOffset: 12,
           borderRadius: 4,
         },
       ],
     };
-  }, [data, theme]);
+  }, [data, getColor]);
 
   return (
     <Flex>
@@ -72,7 +72,7 @@ export function AlocationType({ data }: IAlocationTypeProps) {
             {data.map((item, i) => (
               <tr key={item.sector}>
                 <td>
-                  <ColorBadge color={theme.components.chartColors[i]} />
+                  <ColorBadge color={getColor(i)} />
                 </td>
                 <td>
                   <b>{item.sector}</b>

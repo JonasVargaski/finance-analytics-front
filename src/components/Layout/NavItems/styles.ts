@@ -6,7 +6,13 @@ export const Container = styled.ul`
     margin-top: 8px;
   }
 
+  li,
+  a {
+    color: ${({ theme }) => theme.palette.text};
+  }
+
   li {
+    position: relative;
     a {
       width: 100%;
       display: flex;
@@ -14,7 +20,6 @@ export const Container = styled.ul`
       justify-content: flex-start;
       gap: 14px;
       font-weight: 600;
-      color: ${({ theme }) => theme.palette.text};
       text-decoration: none;
       border-radius: 6px;
       padding: 12px 14px;

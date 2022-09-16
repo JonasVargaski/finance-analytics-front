@@ -1,4 +1,3 @@
-import { useTheme } from '@emotion/react';
 import { useMemo } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, ChartData } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
@@ -10,6 +9,7 @@ import { NumberFormat } from '~/components/NumberFormat';
 import { percent } from '~/utils/numberFormat';
 
 import { TableInfo } from './styles';
+import { useColors } from '~/hooks/useColors';
 
 ChartJS.register(ArcElement, Tooltip);
 
@@ -23,7 +23,7 @@ interface IAlocationActivesProps {
 }
 
 export function AlocationActives({ data }: IAlocationActivesProps) {
-  const theme = useTheme();
+  const getColor = useColors('pallete1');
 
   const charData = useMemo<ChartData<'doughnut'>>(() => {
     return {
@@ -31,14 +31,18 @@ export function AlocationActives({ data }: IAlocationActivesProps) {
       datasets: [
         {
           data: data.map((x) => x.amountPercent),
-          backgroundColor: data.map((_, i) => theme.components.chartColors[i]),
+          backgroundColor: data.map((_, i) => {
+            const c = getColor(i);
+            console.log({ i, c });
+            return c;
+          }),
           borderWidth: 0,
           hoverOffset: 12,
           borderRadius: 4,
         },
       ],
     };
-  }, [data, theme]);
+  }, [data, getColor]);
 
   return (
     <Flex>
@@ -74,7 +78,7 @@ export function AlocationActives({ data }: IAlocationActivesProps) {
             {data.map((item, i) => (
               <tr key={item.ticker}>
                 <td>
-                  <ColorBadge color={theme.components.chartColors[i]} />
+                  <ColorBadge color={getColor(i)} />
                 </td>
                 <td>
                   <b>{item.ticker}</b>

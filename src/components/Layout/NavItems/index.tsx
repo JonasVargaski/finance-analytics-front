@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { MdAccountBalanceWallet, MdVisibility } from 'react-icons/md';
+import { MdAccountBalanceWallet, MdEqualizer, MdVisibility } from 'react-icons/md';
 import { Container } from './styles';
 
 export function NavItems() {
@@ -13,6 +13,11 @@ export function NavItems() {
       <li>
         <NavLink to='radar'>
           <MdVisibility /> Radar
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to='assemble'>
+          <MdEqualizer /> Balancear
         </NavLink>
       </li>
     </Container>
