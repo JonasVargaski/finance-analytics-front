@@ -1,13 +1,13 @@
-import React, { useRef, useLayoutEffect, useState } from 'react'
+import React, { useRef, useLayoutEffect, useState } from 'react';
 
 interface ICollapseProps {
-  children: React.ReactNode
-  instant?: boolean
-  lazy?: boolean
-  open: boolean
-  onComplete?: (state: boolean) => void
-  transitionDuration?: string
-  transitionTimingFunction?: string
+  children: React.ReactNode;
+  instant?: boolean;
+  lazy?: boolean;
+  open: boolean;
+  onComplete?: (state: boolean) => void;
+  transitionDuration?: string;
+  transitionTimingFunction?: string;
 }
 
 function Collapse({
@@ -20,81 +20,85 @@ function Collapse({
   transitionTimingFunction = 'ease-out',
   ...props
 }: ICollapseProps) {
-  const ref = useRef<HTMLDivElement>({} as HTMLDivElement)
-  const firstRender = useRef(true)
-  const [renderChildren, setRenderChildren] = useState(lazy ? open : true)
-  const transition = `height ${transitionDuration} ${transitionTimingFunction}`
+  const ref = useRef<HTMLDivElement>({} as HTMLDivElement);
+  const firstRender = useRef(true);
+  const [renderChildren, setRenderChildren] = useState(lazy ? open : true);
+  const transition = `height ${transitionDuration} ${transitionTimingFunction}`;
 
   function openCollapse() {
-    const node = ref.current
+    const node = ref.current;
     requestAnimationFrame(() => {
-      node.style.height = `${node.scrollHeight}px`
-    })
+      node.style.height = `${node.scrollHeight}px`;
+    });
   }
 
   function closeCollapse() {
-    const node = ref.current
+    const node = ref.current;
     requestAnimationFrame(() => {
-      node.style.height = `${node.offsetHeight}px`
-      node.style.overflow = 'hidden'
+      node.style.height = `${node.offsetHeight}px`;
+      node.style.overflow = 'hidden';
       requestAnimationFrame(() => {
-        node.style.height = '0px'
-      })
-    })
+        node.style.height = '0px';
+      });
+    });
   }
 
   useLayoutEffect(() => {
     if (lazy) {
       if (open) {
         if (renderChildren) {
-          openCollapse()
+          openCollapse();
         } else {
-          setRenderChildren(true)
+          setRenderChildren(true);
         }
       } else {
-        closeCollapse()
+        closeCollapse();
       }
     } else if (open) {
-      openCollapse()
+      openCollapse();
     } else {
-      closeCollapse()
+      closeCollapse();
     }
-  }, [open])
+  }, [open]);
 
   useLayoutEffect(() => {
-    const node = ref.current
+    const node = ref.current;
 
     function handleComplete() {
-      node.style.overflow = open ? 'initial' : 'hidden'
-      if (!open && lazy) setRenderChildren(false)
-      if (onComplete) onComplete(open)
+      node.style.overflow = open ? 'initial' : 'hidden';
+      if (!open && lazy) setRenderChildren(false);
+      if (onComplete) onComplete(open);
       setTimeout(() => {
-        if (open) node.style.height = 'auto'
-      }, 10)
+        if (open) node.style.height = 'auto';
+      }, 10);
     }
 
     function handleTransitionEnd(e: TransitionEvent) {
-      if (e.target === node && e.propertyName === 'height') handleComplete()
+      if (e.target === node && e.propertyName === 'height') handleComplete();
     }
 
     if (instant || firstRender.current) {
-      handleComplete()
-      firstRender.current = false
+      handleComplete();
+      firstRender.current = false;
     }
 
-    node.addEventListener('transitionend', handleTransitionEnd)
-    return () => node.removeEventListener('transitionend', handleTransitionEnd)
-  }, [open])
+    node.addEventListener('transitionend', handleTransitionEnd);
+    return () => node.removeEventListener('transitionend', handleTransitionEnd);
+  }, [open]);
 
   useLayoutEffect(() => {
-    if (open) openCollapse()
-  }, [renderChildren])
+    if (open) openCollapse();
+  }, [renderChildren]);
 
   return (
-    <div ref={ref} style={{ transition: instant || firstRender.current ? undefined : transition }} {...props}>
+    <div
+      ref={ref}
+      style={{ transition: instant || firstRender.current ? undefined : transition }}
+      {...props}
+    >
       {renderChildren ? children : null}
     </div>
-  )
+  );
 }
 
-export default Collapse
+export default Collapse;

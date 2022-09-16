@@ -2,41 +2,36 @@ import styled from '@emotion/styled';
 
 export const Container = styled.ul`
   width: 100%;
-  li + li {
-    margin-top: 8px;
-  }
 
-  li,
   a {
-    color: ${({ theme }) => theme.palette.text};
-  }
+    display: inline-block;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    text-decoration: none;
+    color: ${({ theme }) => theme.palette.text.secondary};
 
-  li {
-    position: relative;
-    a {
+    &.active {
+      background-color: ${({ theme }) => theme.palette.background.active};
+      color: ${({ theme }) => theme.palette.text.primary};
+    }
+
+    li {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: flex-start;
       gap: 14px;
       font-weight: 600;
-      text-decoration: none;
-      border-radius: 6px;
-      padding: 12px 14px;
-      transition: background-color 100ms ease-in-out;
-
-      &.active {
-        background-color: ${({ theme }) => theme.palette.activeBg};
-        color: ${({ theme }) => theme.palette.activeText};
-      }
-
-      &:hover {
-        background-color: ${({ theme }) => theme.palette.activeBg};
-      }
-
-      svg {
-        font-size: 1.6rem;
-      }
+      padding: 12px 18px;
     }
+
+    svg {
+      color: inherit;
+      font-size: 1.6rem;
+    }
+  }
+  a + a {
+    margin-top: 8px;
   }
 `;

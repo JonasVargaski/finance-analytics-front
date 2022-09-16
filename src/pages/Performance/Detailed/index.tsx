@@ -1,13 +1,12 @@
+import { IconButton, Tooltip } from '@mui/material';
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { useState } from 'react';
-import { MdExpandMore } from 'react-icons/md';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '~/components/Collapse';
 import { Flex } from '~/components/Flex';
-import { IconButton } from '~/components/IconButton';
 import { NumberFormat } from '~/components/NumberFormat';
 import { Tip } from '~/components/Tip';
-import { Tooltip } from '~/components/Tooltip';
 import { Typography } from '~/components/Typography';
 import { currency } from '~/utils/numberFormat';
 import { Container, Head, Table, TransactionSection, TransactionTable } from './styles';
@@ -55,13 +54,9 @@ export function Detailed({ data }: IDetailedProps) {
     <Container>
       <Head open={open}>
         <Typography variant='cardTitle'>{data.ticker}</Typography>
-        <Tooltip
-          enterDelay={350}
-          placement='top'
-          content={open ? 'Ocultar resumo' : 'Exibir resumo'}
-        >
+        <Tooltip enterDelay={350} placement='top' title={open ? 'Ocultar resumo' : 'Exibir resumo'}>
           <IconButton onClick={() => setOpen((old) => !old)}>
-            <MdExpandMore />
+            <ExpandMore />
           </IconButton>
         </Tooltip>
       </Head>
@@ -133,7 +128,7 @@ export function Detailed({ data }: IDetailedProps) {
                   <tr key={resume.date}>
                     <td>{format(parseISO(resume.date), 'MMMM yyyy', { locale: ptBR })}</td>
                     {resume.provents ? (
-                      <td css={(t) => ({ color: !resume.received ? t.palette.primary : '' })}>
+                      <td css={(t) => ({ color: !resume.received ? t.palette.primary.main : '' })}>
                         <NumberFormat format='percent' value={resume.percentProvents} />
                         <NumberFormat format='currency' value={resume.provents} />
                         {!resume.received && (

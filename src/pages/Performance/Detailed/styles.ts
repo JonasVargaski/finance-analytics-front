@@ -15,7 +15,7 @@ export const Head = styled.div<{ open: boolean }>`
 `;
 
 export const Table = styled.table`
-  color: ${({ theme }) => theme.palette.text};
+  color: ${({ theme }) => theme.palette.text.primary};
 
   tbody {
     font-size: 1.02rem;
@@ -82,7 +82,7 @@ export const TransactionTable = styled.table`
   border-spacing: 0;
 
   thead {
-    color: ${({ theme }) => theme.palette.text};
+    color: ${({ theme }) => theme.palette.text.primary};
     height: 24px;
     tr > th {
       font-weight: 600;
@@ -90,16 +90,16 @@ export const TransactionTable = styled.table`
   }
 
   tbody {
-    color: ${({ theme }) => theme.palette.text};
+    color: ${({ theme }) => theme.palette.text.primary};
 
     tr {
       white-space: nowrap;
       transition: background-color 85ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
       &:nth-of-type(even) {
-        background-color: ${({ theme }) => theme.components.table.stripBg};
+        background-color: ${({ theme }) => theme.palette.background.paper};
       }
       &:hover {
-        background-color: ${({ theme }) => theme.palette.activeBg};
+        background-color: ${({ theme }) => theme.palette.background.default};
       }
 
       td {

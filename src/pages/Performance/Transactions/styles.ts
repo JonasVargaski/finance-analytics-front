@@ -12,7 +12,7 @@ export const Container = styled.div`
     border-spacing: 0;
 
     thead {
-      color: ${({ theme }) => theme.palette.text};
+      color: ${({ theme }) => theme.palette.text.primary};
       height: 24px;
       tr > th {
         font-weight: 600;
@@ -20,16 +20,16 @@ export const Container = styled.div`
     }
 
     tbody {
-      color: ${({ theme }) => theme.palette.text};
+      color: ${({ theme }) => theme.palette.text.primary};
 
       tr {
         white-space: nowrap;
         transition: background-color 85ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
         &:nth-of-type(even) {
-          background-color: ${({ theme }) => theme.components.table.stripBg};
+          background-color: ${({ theme }) => theme.palette.text.secondary};
         }
         &:hover {
-          background-color: ${({ theme }) => theme.palette.activeBg};
+          background-color: ${({ theme }) => theme.palette.text.secondary};
         }
 
         td {

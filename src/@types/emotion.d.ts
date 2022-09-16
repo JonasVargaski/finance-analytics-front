@@ -1,39 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import '@emotion/react';
-
-export interface AppTheme {
-  palette: {
-    title: string;
-    text: string;
-    activeText: string;
-    divider: string;
-    info: string;
-    background: string;
-    foreground: string;
-    activeBg: string;
-    primary: string;
-    primaryLight: string;
-    success: string;
-    successLight: string;
-    warning: string;
-    warningLight: string;
-    danger: string;
-    dangerLight: string;
-  };
-  shadows: {
-    card: string;
-  };
-  components: {
-    tooltip: {
-      color: string;
-      background: string;
-    };
-    table: {
-      stripBg: string;
-    };
-  };
-}
+import { Theme as MuiTheme } from '@mui/material/styles';
 
 declare module '@emotion/react' {
-  export interface Theme extends AppTheme {}
+  export interface Theme extends MuiTheme {}
 }

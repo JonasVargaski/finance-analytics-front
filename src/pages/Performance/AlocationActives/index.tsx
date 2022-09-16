@@ -33,7 +33,6 @@ export function AlocationActives({ data }: IAlocationActivesProps) {
           data: data.map((x) => x.amountPercent),
           backgroundColor: data.map((_, i) => {
             const c = getColor(i);
-            console.log({ i, c });
             return c;
           }),
           borderWidth: 0,

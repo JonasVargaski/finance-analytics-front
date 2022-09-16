@@ -1,6 +1,6 @@
-import { AppTheme } from '~/@types/emotion';
+import { createTheme } from '@mui/material';
 
-export const lightTheme: AppTheme = {
+export const app: AppTheme = {
   palette: {
     title: '#06152B',
     text: '#809FB8',
@@ -32,3 +32,18 @@ export const lightTheme: AppTheme = {
     },
   },
 };
+
+const theme = createTheme({
+  typography: {
+    fontFamily: ['Montserrat', 'sans-serif'].join(','),
+  },
+  palette: {
+    primary: { main: '#217EFD' },
+    secondary: { main: '#F3654A' },
+    success: { main: '#02da02' },
+    warning: { main: '#FFB536' },
+    divider: '#333',
+  },
+});
+
+export default theme;

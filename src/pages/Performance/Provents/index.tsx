@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useTheme } from '@emotion/react';
+import { useTheme } from '@mui/material';
 import { format, parse } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Bar } from 'react-chartjs-2';
@@ -37,8 +37,8 @@ export function Provents({ data }: IProventsProps) {
         {
           data: data.map((x) => x.value),
           label: 'Valor',
-          backgroundColor: theme.palette.warning,
-          borderColor: theme.palette.warningLight,
+          backgroundColor: theme.palette.warning.main,
+          borderColor: theme.palette.warning.light,
           borderWidth: 0.5,
           borderRadius: 3,
         },
@@ -57,7 +57,7 @@ export function Provents({ data }: IProventsProps) {
           plugins: {
             datalabels: {
               formatter: (value) => currency.format(value),
-              color: theme.palette.text,
+              color: theme.palette.text.primary,
               font: { weight: 'bold' },
               anchor: 'end',
               align: 'end',
@@ -85,14 +85,14 @@ export function Provents({ data }: IProventsProps) {
           scales: {
             x: {
               grid: { display: false },
-              ticks: { color: theme.palette.text },
+              ticks: { color: theme.palette.text.primary },
             },
             y: {
               type: 'linear',
               grace: '30%',
               beginAtZero: true,
               grid: { color: theme.palette.divider, borderDash: [3] },
-              ticks: { color: theme.palette.text },
+              ticks: { color: theme.palette.text.primary },
             },
           },
         }}

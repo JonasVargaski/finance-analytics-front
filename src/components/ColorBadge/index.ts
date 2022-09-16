@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const ColorBadge = styled.span<{ color: string }>`
   display: block;
-  box-shadow: ${({ theme }) => theme.shadows.card};
+  box-shadow: ${({ theme }) => theme.shadows[1]};
   background-color: ${({ color }) => color};
   width: 14px;
   height: 14px;
