@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 export const Container = styled.span<{ colors: boolean; isNegative: boolean }>`
   color: ${({ theme, colors, isNegative }) => {
     if (!colors) return 'inherit';
-    return isNegative ? theme.palette.secondary.main : theme.palette.success.main;
+    return isNegative ? theme.palette.error.main : theme.palette.success.main;
   }};
 
   svg {

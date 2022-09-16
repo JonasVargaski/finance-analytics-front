@@ -1,37 +1,4 @@
-import { createTheme } from '@mui/material';
-
-export const app: AppTheme = {
-  palette: {
-    title: '#06152B',
-    text: '#809FB8',
-    activeText: '#384455',
-    divider: '#e8e8e8',
-    info: '#FE6BBA',
-    background: '#f1f1f1',
-    foreground: '#fbfbfb',
-    activeBg: '#F1F5F7',
-    primary: '#217EFD',
-    primaryLight: 'rgba(33, 126, 253, 0.298039)',
-    success: '#02da02',
-    successLight: 'rgba(26, 213, 152, 0.2)',
-    warning: '#FFB536',
-    warningLight: 'rgba(255, 181, 54, 0.298039)',
-    danger: '#F3654A',
-    dangerLight: 'rgba(243, 101, 74, 0.298039)',
-  },
-  shadows: {
-    card: '0px 0px 9px -6px rgb(0, 0, 0, 0.3)',
-  },
-  components: {
-    tooltip: {
-      color: '#fcfcfc',
-      background: '#616161e6',
-    },
-    table: {
-      stripBg: '#f4f4f4',
-    },
-  },
-};
+import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   typography: {
@@ -39,10 +6,61 @@ const theme = createTheme({
   },
   palette: {
     primary: { main: '#217EFD' },
-    secondary: { main: '#F3654A' },
+    secondary: { main: '#FE6BBA' },
+    error: { main: '#F3654A' },
     success: { main: '#02da02' },
     warning: { main: '#FFB536' },
-    divider: '#333',
+    divider: '#e8e8e8',
+    background: {
+      active: '#F1F5F7',
+      default: '#f1f1f1',
+      paper: '#fbfbfb',
+      striped: '#f4f4f4',
+    },
+    action: {
+      hover: '#F1F5F7',
+    },
+    text: {
+      active: '#06152B',
+      primary: '#384455',
+      secondary: '#809FB8',
+      disabled: '#a3a3a3',
+    },
+  },
+  components: {
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          background: 'rgba(5,5,5,0.82)',
+          padding: '7px 14px',
+          fontSize: '0.84rem',
+          lineHeight: 1.25,
+          borderRadius: 6,
+          color: '#ffffff',
+        },
+      },
+    },
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          '&:active': {
+            color: '#384455',
+          },
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            backgroundColor: '#F1F5F7',
+          },
+          '.MuiSvgIcon-root': {
+            color: '#809FB8',
+          },
+        },
+      },
+    },
   },
 });
 

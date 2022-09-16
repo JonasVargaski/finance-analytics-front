@@ -23,7 +23,7 @@ export const Container = styled.ul`
       justify-content: flex-start;
       gap: 14px;
       font-weight: 600;
-      padding: 12px 18px;
+      padding: 12px 14px;
     }
 
     svg {
@@ -32,6 +32,6 @@ export const Container = styled.ul`
     }
   }
   a + a {
-    margin-top: 8px;
+    margin-top: 5px;
   }
 `;

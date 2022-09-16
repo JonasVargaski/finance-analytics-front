@@ -38,7 +38,7 @@ export function Provents({ data }: IProventsProps) {
           data: data.map((x) => x.value),
           label: 'Valor',
           backgroundColor: theme.palette.warning.main,
-          borderColor: theme.palette.warning.light,
+          borderColor: theme.palette.warning.dark,
           borderWidth: 0.5,
           borderRadius: 3,
         },
@@ -57,7 +57,7 @@ export function Provents({ data }: IProventsProps) {
           plugins: {
             datalabels: {
               formatter: (value) => currency.format(value),
-              color: theme.palette.text.primary,
+              color: theme.palette.text.secondary,
               font: { weight: 'bold' },
               anchor: 'end',
               align: 'end',
@@ -85,14 +85,14 @@ export function Provents({ data }: IProventsProps) {
           scales: {
             x: {
               grid: { display: false },
-              ticks: { color: theme.palette.text.primary },
+              ticks: { color: theme.palette.text.secondary },
             },
             y: {
               type: 'linear',
               grace: '30%',
               beginAtZero: true,
               grid: { color: theme.palette.divider, borderDash: [3] },
-              ticks: { color: theme.palette.text.primary },
+              ticks: { color: theme.palette.text.secondary },
             },
           },
         }}

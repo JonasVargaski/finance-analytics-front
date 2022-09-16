@@ -8,6 +8,7 @@ declare module '@mui/material/styles/createPalette' {
 
   interface TypeBackground {
     active: string;
+    striped: string;
   }
 
   // interface Palette {
