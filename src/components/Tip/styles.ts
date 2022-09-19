@@ -5,8 +5,9 @@ export const TipContainer = styled.div`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: ${({ theme }) => theme.palette.text};
+  color: ${({ theme }) => theme.palette.text.secondary};
   svg {
+    background-color: transparent;
     font-size: 17px;
   }
 `;

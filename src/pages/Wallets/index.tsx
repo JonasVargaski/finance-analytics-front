@@ -1,16 +1,13 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MdMoreVert } from 'react-icons/md';
+import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
+import MoreVert from '@mui/icons-material/Morevert';
 
 import { useWallets } from '~/hooks/resources/useWallets';
 
 import { Flex } from '~/components/Flex';
-import { IconButton } from '~/components/IconButton';
 import { Typography } from '~/components/Typography';
 import { Card } from '~/components/Generic';
-import { Tooltip } from '~/components/Tooltip';
-import { Popover } from '~/components/Popover';
-import { Menu, MenuItem } from '~/components/Menu';
 
 import { Container, Header } from './styles';
 
@@ -38,9 +35,9 @@ export function Wallets() {
           <Header>
             <h6>{x.name}</h6>
             <Flex>
-              <Tooltip placement='top' content='Opções'>
+              <Tooltip placement='top' title='Opções'>
                 <IconButton onClick={(e) => setSelected({ id: x.id, anchor: e.currentTarget })}>
-                  <MdMoreVert />
+                  <MoreVert />
                 </IconButton>
               </Tooltip>
             </Flex>
@@ -50,21 +47,19 @@ export function Wallets() {
         </Card>
       ))}
 
-      <Popover
+      <Menu
         anchorEl={selected.anchor}
         open={!!selected.id}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        transformOrigin={{ horizontal: 'right' }}
-        onRequestClose={() => setSelected({ id: '', anchor: null })}
+        transformOrigin={{ horizontal: 'right', vertical: 'center' }}
+        onClose={() => setSelected({ id: '', anchor: null })}
       >
-        <Menu>
-          <MenuItem onClick={() => navigateTo(`/wallets/${selected.id}/performance`)}>
-            Ver performace
-          </MenuItem>
-          <MenuItem>Editar</MenuItem>
-          <MenuItem>Excluir</MenuItem>
-        </Menu>
-      </Popover>
+        <MenuItem onClick={() => navigateTo(`/wallets/${selected.id}/performance`)}>
+          Ver performace
+        </MenuItem>
+        <MenuItem>Editar</MenuItem>
+        <MenuItem>Excluir</MenuItem>
+      </Menu>
     </Container>
   );
 }

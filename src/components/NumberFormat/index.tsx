@@ -1,4 +1,6 @@
-import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md';
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
+
 import { currency, percent } from '~/utils/numberFormat';
 import { Container } from './styles';
 
@@ -28,8 +30,8 @@ export function NumberFormat({
 }: IFormatNumberProps) {
   return (
     <Container className={`format-${format}`} colors={!!colors} isNegative={value < 0} {...props}>
-      {showIndicator && value > 0 ? <MdArrowDropUp /> : null}
-      {showIndicator && value < 0 ? <MdArrowDropDown /> : null}
+      {showIndicator && value > 0 ? <ArrowDropUp /> : null}
+      {showIndicator && value < 0 ? <ArrowDropDown /> : null}
       {mapFormatters[format](value)}
     </Container>
   );

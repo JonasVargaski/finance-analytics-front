@@ -5,7 +5,7 @@ export const Container = styled.div`
   height: 100vh;
   padding: 20px 0 0 20px;
   margin: 0 auto;
-  background: ${({ theme }) => theme.palette.background};
+  background: ${({ theme }) => theme.palette.background.default};
   display: grid;
   grid-template-areas: 'nav header' 'nav main';
   grid-template-columns: 260px 1fr;
@@ -21,8 +21,8 @@ export const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   margin-right: 20px;
-  box-shadow: ${({ theme }) => theme.shadows.card};
-  background-color: ${({ theme }) => theme.palette.foreground};
+  box-shadow: ${({ theme }) => theme.shadows[1]};
+  background-color: ${({ theme }) => theme.palette.background.paper};
 
   svg {
     font-size: 1.8rem;
@@ -38,8 +38,8 @@ export const NavSidebar = styled.nav`
   justify-content: flex-start;
   padding: 16px 12px;
   margin-bottom: 20px;
-  box-shadow: ${({ theme }) => theme.shadows.card};
-  background-color: ${({ theme }) => theme.palette.foreground};
+  box-shadow: ${({ theme }) => theme.shadows[1]};
+  background-color: ${({ theme }) => theme.palette.background.paper};
 `;
 
 export const Main = styled.main`

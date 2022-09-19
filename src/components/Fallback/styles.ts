@@ -30,7 +30,7 @@ export const Container = styled.div`
 
   @keyframes draw {
     0% {
-      stroke: ${({ theme }) => theme.palette.primary};
+      stroke: ${({ theme }) => theme.palette.primary.main};
     }
     100% {
       stroke-dashoffset: 300;
@@ -39,24 +39,24 @@ export const Container = styled.div`
 
   @keyframes letterflash {
     0% {
-      fill: ${({ theme }) => theme.palette.primary};
+      fill: ${({ theme }) => theme.palette.primary.main};
     }
     100% {
-      fill: ${({ theme }) => theme.palette.warning};
+      fill: ${({ theme }) => theme.palette.warning.main};
     }
   }
 
   @keyframes spinnerflash {
     0% {
-      stroke: ${({ theme }) => theme.palette.primary};
+      stroke: ${({ theme }) => theme.palette.primary.main};
     }
     100% {
-      stroke: ${({ theme }) => theme.palette.warning};
+      stroke: ${({ theme }) => theme.palette.warning.main};
     }
   }
 
   .circle {
-    stroke: ${({ theme }) => theme.palette.warning};
+    stroke: ${({ theme }) => theme.palette.warning.main};
     stroke-dasharray: 150;
     animation: draw 2s linear infinite;
   }

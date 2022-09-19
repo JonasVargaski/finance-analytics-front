@@ -1,25 +1,29 @@
 import { NavLink } from 'react-router-dom';
-import { MdAccountBalanceWallet, MdEqualizer, MdVisibility } from 'react-icons/md';
+import MenuItem from '@mui/material/MenuItem';
+import AccountBalanceWallet from '@mui/icons-material/AccountBalanceWallet';
+import Visibility from '@mui/icons-material/Visibility';
+import Equalizer from '@mui/icons-material/Equalizer';
+
 import { Container } from './styles';
 
 export function NavItems() {
   return (
     <Container>
-      <li>
-        <NavLink to='wallets'>
-          <MdAccountBalanceWallet /> Carteiras
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to='radar'>
-          <MdVisibility /> Radar
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to='assemble'>
-          <MdEqualizer /> Balancear
-        </NavLink>
-      </li>
+      <NavLink to='wallets'>
+        <MenuItem>
+          <AccountBalanceWallet /> Carteiras
+        </MenuItem>
+      </NavLink>
+      <NavLink to='radar'>
+        <MenuItem>
+          <Visibility /> Radar
+        </MenuItem>
+      </NavLink>
+      <NavLink to='assemble'>
+        <MenuItem>
+          <Equalizer /> Balancear
+        </MenuItem>
+      </NavLink>
     </Container>
   );
 }
