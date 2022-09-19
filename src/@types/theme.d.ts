@@ -22,15 +22,15 @@ declare module '@mui/material/styles/createPalette' {
 
 declare module '@mui/material/styles' {
   interface Theme {
-    // status: {
-    //   danger: string;
-    // };
+    custom: {
+      shadows: [string];
+    };
   }
 
   interface ThemeOptions {
-    // status?: {
-    //   danger?: string;
-    // };
+    custom: {
+      shadows: [string];
+    };
   }
 
   export function createTheme(options: ThemeOptions): Theme;

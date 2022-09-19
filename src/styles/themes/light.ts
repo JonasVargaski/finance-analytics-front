@@ -27,6 +27,9 @@ const theme = createTheme({
       disabled: '#a3a3a3',
     },
   },
+  custom: {
+    shadows: ['0px 0px 9px -6px rgb(0, 0, 0, 0.3)'],
+  },
   components: {
     MuiTooltip: {
       styleOverrides: {

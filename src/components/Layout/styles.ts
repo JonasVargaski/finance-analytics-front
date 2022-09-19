@@ -21,7 +21,7 @@ export const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   margin-right: 20px;
-  box-shadow: ${({ theme }) => theme.shadows[1]};
+  box-shadow: ${({ theme }) => theme.custom.shadows[0]};
   background-color: ${({ theme }) => theme.palette.background.paper};
 
   svg {
@@ -38,7 +38,7 @@ export const NavSidebar = styled.nav`
   justify-content: flex-start;
   padding: 16px 12px;
   margin-bottom: 20px;
-  box-shadow: ${({ theme }) => theme.shadows[1]};
+  box-shadow: ${({ theme }) => theme.custom.shadows[0]};
   background-color: ${({ theme }) => theme.palette.background.paper};
 `;
 
