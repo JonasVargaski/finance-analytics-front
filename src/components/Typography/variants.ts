@@ -16,3 +16,9 @@ export const cardTitle = styled.h3`
   font-weight: 600;
   color: ${({ theme }) => theme.palette.text.active};
 `;
+
+export const pageTitle = styled.h1`
+  font-size: 20px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.palette.text.secondary};
+`;

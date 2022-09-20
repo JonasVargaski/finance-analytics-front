@@ -1,5 +1,6 @@
 import { ThemeProvider as EmotionThemeProvider, Global } from '@emotion/react';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
 
 import { Chart as ChartJS } from 'chart.js';
 import { globalStyles } from './global';
@@ -22,6 +23,7 @@ export function ThemeProvider({ children }: IThemeProviderProps) {
     <MuiThemeProvider theme={theme}>
       <EmotionThemeProvider theme={theme}>
         <Global styles={globalStyles} />
+        <CssBaseline />
         {children}
       </EmotionThemeProvider>
     </MuiThemeProvider>

@@ -5,11 +5,9 @@ import { IconButton } from '@mui/material';
 
 import { useLocalStorage } from '~/hooks/useLocalStorage';
 import { Fallback } from '~/components/Fallback';
-import { Flex } from '~/components/Flex';
-import { Typography } from '~/components/Typography';
 
 import { NavItems } from './NavItems';
-import { Container, Header, Main, NavSidebar } from './styles';
+import { Container, Main, NavSidebar } from './styles';
 
 export function AppLayout() {
   const [theme, setTheme] = useLocalStorage<{ theme: 'light' | 'dark' }>('theme', {
@@ -18,9 +16,9 @@ export function AppLayout() {
 
   return (
     <Container>
-      <Header>
-        <Typography variant='cardTitle'>Carteiras</Typography>
-        <Flex g='7px'>
+      <NavSidebar>
+        <NavItems />
+        <div style={{ margin: 'auto 0 0 auto' }}>
           <IconButton
             onClick={() =>
               setTheme(theme.theme === 'light' ? { theme: 'dark' } : { theme: 'light' })
@@ -28,11 +26,7 @@ export function AppLayout() {
           >
             <Settings />
           </IconButton>
-        </Flex>
-      </Header>
-
-      <NavSidebar>
-        <NavItems />
+        </div>
       </NavSidebar>
 
       <Main>

@@ -7,26 +7,10 @@ export const Container = styled.div`
   margin: 0 auto;
   background: ${({ theme }) => theme.palette.background.default};
   display: grid;
-  grid-template-areas: 'nav header' 'nav main';
+  grid-template-areas: 'nav main' 'nav main';
   grid-template-columns: 260px 1fr;
   grid-template-rows: 70px 1fr;
   gap: 25px;
-`;
-
-export const Header = styled.header`
-  grid-area: header;
-  border-radius: 16px;
-  padding: 9px 13px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-right: 20px;
-  box-shadow: ${({ theme }) => theme.custom.shadows[0]};
-  background-color: ${({ theme }) => theme.palette.background.paper};
-
-  svg {
-    font-size: 1.8rem;
-  }
 `;
 
 export const NavSidebar = styled.nav`

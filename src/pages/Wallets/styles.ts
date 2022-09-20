@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Container = styled.ul`
+export const List = styled.ul`
   display: grid;
   grid-gap: 1.3rem;
   grid-template-columns: 1fr;

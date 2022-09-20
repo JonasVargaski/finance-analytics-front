@@ -9,7 +9,7 @@ import { Flex } from '~/components/Flex';
 import { Typography } from '~/components/Typography';
 import { Card } from '~/components/Generic';
 
-import { Container, Header } from './styles';
+import { List, Header } from './styles';
 
 export function Wallets() {
   const navigate = useNavigate();
@@ -29,37 +29,43 @@ export function Wallets() {
   );
 
   return (
-    <Container>
-      {wallets?.map((x) => (
-        <Card key={x.id}>
-          <Header>
-            <h6>{x.name}</h6>
-            <Flex>
-              <Tooltip placement='top' title='Opções'>
-                <IconButton onClick={(e) => setSelected({ id: x.id, anchor: e.currentTarget })}>
-                  <MoreVert />
-                </IconButton>
-              </Tooltip>
-            </Flex>
-          </Header>
+    <>
+      <Flex m='8px 0 20px'>
+        <Typography variant='pageTitle'>Carteiras</Typography>
+      </Flex>
 
-          <Typography variant='description'>{x.description}</Typography>
-        </Card>
-      ))}
+      <List>
+        {wallets?.map((x) => (
+          <Card key={x.id}>
+            <Header>
+              <h6>{x.name}</h6>
+              <Flex>
+                <Tooltip placement='top' title='Opções'>
+                  <IconButton onClick={(e) => setSelected({ id: x.id, anchor: e.currentTarget })}>
+                    <MoreVert />
+                  </IconButton>
+                </Tooltip>
+              </Flex>
+            </Header>
 
-      <Menu
-        anchorEl={selected.anchor}
-        open={!!selected.id}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        transformOrigin={{ horizontal: 'right', vertical: 'center' }}
-        onClose={() => setSelected({ id: '', anchor: null })}
-      >
-        <MenuItem onClick={() => navigateTo(`/wallets/${selected.id}/performance`)}>
-          Ver performace
-        </MenuItem>
-        <MenuItem>Editar</MenuItem>
-        <MenuItem>Excluir</MenuItem>
-      </Menu>
-    </Container>
+            <Typography variant='description'>{x.description}</Typography>
+          </Card>
+        ))}
+
+        <Menu
+          anchorEl={selected.anchor}
+          open={!!selected.id}
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          transformOrigin={{ horizontal: 'right', vertical: 'center' }}
+          onClose={() => setSelected({ id: '', anchor: null })}
+        >
+          <MenuItem onClick={() => navigateTo(`/wallets/${selected.id}/performance`)}>
+            Desempenho
+          </MenuItem>
+          <MenuItem>Editar</MenuItem>
+          <MenuItem>Excluir</MenuItem>
+        </Menu>
+      </List>
+    </>
   );
 }
