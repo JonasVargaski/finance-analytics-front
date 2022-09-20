@@ -1,20 +1,21 @@
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import { Controller, Control } from 'react-hook-form';
+import { NumberFormatCustom } from '../../NumberFormat';
 
-interface ITextFieldFormProps extends Omit<TextFieldProps, 'name' | 'helperText'> {
+interface ITextFieldNumberFormProps extends Omit<TextFieldProps, 'name' | 'helperText'> {
   name: string;
   defaultValue?: string | number;
   helperText?: string;
   control: Control<any, any>;
 }
 
-export function TextFieldForm({
+export function TextFieldNumberForm({
   control,
   name,
   helperText,
   defaultValue,
   ...rest
-}: ITextFieldFormProps) {
+}: ITextFieldNumberFormProps) {
   return (
     <Controller
       name={name}
@@ -23,7 +24,9 @@ export function TextFieldForm({
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <TextField
           {...rest}
-          onChange={onChange}
+          name={name}
+          InputProps={{ inputComponent: NumberFormatCustom as any }}
+          onChange={(e) => onChange(e.target.value)}
           value={value}
           helperText={error?.message || helperText}
           error={!!error?.message}

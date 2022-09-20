@@ -31,6 +31,14 @@ const theme = createTheme({
     shadows: ['0px 0px 9px -6px rgb(0, 0, 0, 0.3)'],
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        '.Mui-disabled': {
+          opacity: 0.6,
+          color: 'currentColor!important',
+        },
+      },
+    },
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
@@ -40,6 +48,28 @@ const theme = createTheme({
           lineHeight: 1.25,
           borderRadius: 6,
           color: '#ffffff',
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          ':hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#5c5c5c',
+          },
+        },
+        notchedOutline: {
+          borderColor: '#333',
+        },
+      },
+    },
+    MuiSwitch: {
+      styleOverrides: {
+        switchBase: {
+          color: '#9b9b9b',
+        },
+        track: {
+          backgroundColor: '#9b9b9b',
         },
       },
     },

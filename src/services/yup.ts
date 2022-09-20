@@ -1,6 +1,6 @@
 import * as yup from 'yup';
-import { pt } from 'yup-locale-pt';
+import { ptForm } from 'yup-locale-pt';
 
-yup.setLocale(pt);
+yup.setLocale(ptForm);
 
 export { yup };
