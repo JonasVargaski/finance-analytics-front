@@ -39,6 +39,13 @@ const theme = createTheme({
         },
       },
     },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          fontWeight: 500,
+        },
+      },
+    },
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
@@ -91,6 +98,13 @@ const theme = createTheme({
           '.MuiSvgIcon-root': {
             color: '#9b9b9b',
           },
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          fontWeight: 500,
         },
       },
     },

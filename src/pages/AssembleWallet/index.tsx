@@ -2,7 +2,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 import { Button, CircularProgress, FormHelperText, IconButton, Tooltip } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useForm } from 'react-hook-form';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Controller, useForm } from 'react-hook-form';
 import { api } from '~/services/apiClient';
 
 import { Flex } from '~/components/Flex';
@@ -12,9 +13,11 @@ import { Typography } from '~/components/Typography';
 import { DesktopDatePickerForm } from '~/components/Inputs/WithHookForm/DesktopDatePicker';
 import { TextFieldNumberForm } from '~/components/Inputs/WithHookForm/TextFieldNumber';
 import { SwitchForm } from '~/components/Inputs/WithHookForm/Switch';
-import { TextFieldForm } from '~/components/Inputs/WithHookForm/TextField';
-import { Container } from './styles';
+import { AssembledTable, Container, InfoHeader, Result } from './styles';
 import { resolver } from './validator';
+import { TickerSelectTextField } from '~/components/Inputs/FundsSelectTextField';
+import { format, parseISO } from 'date-fns';
+import { NumberFormat } from '~/components/NumberFormat';
 
 interface FormValues {
   value: number;
@@ -32,13 +35,13 @@ interface IAssembleWallet {
   total: number;
   rest: number;
   quotas: number;
-  date: Date;
+  date: string;
   itens: {
     ticker: string;
     quotas: number;
     price: number;
     amount: number;
-    quotedAt: Date;
+    quotedAt: string;
   }[];
 }
 
@@ -54,7 +57,7 @@ export function AssembleWallet() {
     setError,
     formState: { errors },
   } = useForm<FormValues>({
-    defaultValues: { actives: [] },
+    defaultValues: { actives: [{ id: uuidv4(), ticker: '' }] },
     resolver,
   });
 
@@ -118,19 +121,8 @@ export function AssembleWallet() {
             <SwitchForm name='enablePeriod' label='Repetir período' control={control} />
           </Flex>
 
-          <Flex m='24px 0' css={{ justifyContent: 'space-between' }}>
+          <Flex m='24px 0'>
             <Typography variant='text'>Lista de ativos</Typography>
-
-            <Tooltip placement='top' title='Adicionar ativo'>
-              <IconButton
-                onClick={() => {
-                  setError('actives', { message: undefined });
-                  setValue('actives', [...actives, { id: uuidv4(), ticker: '' }]);
-                }}
-              >
-                <AddIcon />
-              </IconButton>
-            </Tooltip>
           </Flex>
 
           {errors.actives?.message && (
@@ -140,12 +132,19 @@ export function AssembleWallet() {
           )}
 
           {actives.map((active, i) => (
-            <Flex m='18px 0' key={active.id} g='20px'>
-              <TextFieldForm
+            <Flex m='18px 0' key={active.id} g='16px' css={{ alignItems: 'flex-start' }}>
+              <Controller
                 name={`actives.${i}.ticker`}
-                label='Ticker'
                 control={control}
-                autoComplete='off'
+                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                  <TickerSelectTextField
+                    label='Ticker'
+                    value={value}
+                    onChange={(_, option) => onChange(option?.ticker)}
+                    error={!!error?.message}
+                    helperText={error?.message}
+                  />
+                )}
               />
 
               <TextFieldNumberForm
@@ -161,11 +160,38 @@ export function AssembleWallet() {
                   thousandSeparator: false,
                 }}
               />
+
+              <Tooltip placement='top' title='Remover'>
+                <IconButton
+                  css={{ marginTop: 8, svg: { fontSize: 20 } }}
+                  onClick={() =>
+                    setValue(
+                      'actives',
+                      actives.filter((x) => x.id !== active.id),
+                    )
+                  }
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
             </Flex>
           ))}
 
-          <Flex fw css={{ justifyContent: 'flex-end' }}>
-            <Button disabled={loading} variant='contained' onClick={handleSubmit(onSubmit)}>
+          <Flex g='18px' fw css={{ justifyContent: 'flex-end' }}>
+            <Button
+              endIcon={<AddIcon />}
+              onClick={() => {
+                setError('actives', { message: undefined });
+                setValue('actives', [...actives, { id: uuidv4(), ticker: '' }]);
+              }}
+            >
+              Adicionar ativo
+            </Button>
+            <Button
+              disabled={loading || actives.length < 1}
+              variant='contained'
+              onClick={handleSubmit(onSubmit)}
+            >
               {loading ? (
                 <Flex g='5px'>
                   Processando... <CircularProgress size={18} />
@@ -178,10 +204,62 @@ export function AssembleWallet() {
         </form>
       </Card>
 
-      <Card>
-        <Typography variant='cardTitle'>Resultados</Typography>
-        {JSON.stringify(assembled, null, 2)}
-      </Card>
+      {!!assembled?.length && (
+        <Card>
+          <Typography variant='cardTitle'>Resultado</Typography>
+
+          <Result>
+            {assembled?.map((item) => (
+              <Flex key={item.date} dir='col'>
+                <InfoHeader>
+                  <tbody>
+                    <tr>
+                      <td>Data cotação:</td>
+                      <td>{format(parseISO(item.date), 'dd/MM/yyyy')}</td>
+                      <td>Valor restante:</td>
+                      <td>
+                        <NumberFormat format='currency' value={item.rest} />
+                      </td>
+                    </tr>
+                  </tbody>
+                </InfoHeader>
+                <AssembledTable>
+                  <thead>
+                    <tr>
+                      <th>Ativo</th>
+                      <th>Cotação</th>
+                      <th>Quantidade</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {item.itens.map((assembledItem) => (
+                      <tr key={assembledItem.ticker}>
+                        <td>{assembledItem.ticker}</td>
+                        <td>
+                          <NumberFormat format='currency' value={assembledItem.price} />
+                        </td>
+                        <td>{assembledItem.quotas}</td>
+                        <td>
+                          <NumberFormat format='currency' value={assembledItem.amount} />
+                        </td>
+                      </tr>
+                    ))}
+                    <tr>
+                      <td>Total:</td>
+                      <td></td>
+                      <td>{item.quotas}</td>
+                      <td>
+                        <NumberFormat format='currency' value={item.total} />
+                      </td>
+                    </tr>
+                  </tbody>
+                </AssembledTable>
+              </Flex>
+            ))}
+          </Result>
+        </Card>
+      )}
     </Container>
   );
 }
