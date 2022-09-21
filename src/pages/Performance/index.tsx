@@ -22,8 +22,6 @@ export function Performance() {
 
   const { data } = useWalletPerformace({ id, suspense: true, enabled: !!id });
 
-  console.log(data);
-
   return (
     <>
       <Flex m='8px 0 20px'>
@@ -74,7 +72,9 @@ export function Performance() {
 
         <Card style={{ gridArea: 'alocation-type-graph' }}>
           <Typography variant='cardTitle'>Alocação por ativo</Typography>
-          <AlocationActives data={data?.groupedTransactions ?? []} />
+          <AlocationActives
+            data={data?.groupedTransactions.sort((a, b) => a.amountPercent - b.amountPercent) ?? []}
+          />
         </Card>
 
         <Card style={{ gridArea: 'provents-graph' }}>

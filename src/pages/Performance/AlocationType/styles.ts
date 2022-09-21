@@ -41,5 +41,6 @@ export const TableInfo = styled.table`
   }
   td:nth-of-type(3) {
     text-align: end;
+    white-space: nowrap;
   }
 `;

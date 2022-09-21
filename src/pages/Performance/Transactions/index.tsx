@@ -30,8 +30,8 @@ export function Transactions({ data }: ITransactionsProps) {
             <th>Cotas</th>
             <th>Valor compra</th>
             <th>Valor atual</th>
-            <th>Valorização</th>
             <th>Proventos</th>
+            <th>Valorização</th>
             <th>Resultado</th>
           </tr>
         </thead>
@@ -53,10 +53,6 @@ export function Transactions({ data }: ITransactionsProps) {
               <td>
                 <NumberFormat format='currency' value={t.currentPrice} />
               </td>
-              <td>
-                <NumberFormat showIndicator colors format='percent' value={t.percentAppreciation} />
-                <NumberFormat colors format='currency' value={t.appreciation} />
-              </td>
               <td style={{ textAlign: t.provents ? 'right' : 'center' }}>
                 {t.provents ? (
                   <>
@@ -66,6 +62,10 @@ export function Transactions({ data }: ITransactionsProps) {
                 ) : (
                   '--'
                 )}
+              </td>
+              <td>
+                <NumberFormat showIndicator colors format='percent' value={t.percentAppreciation} />
+                <NumberFormat colors format='currency' value={t.appreciation} />
               </td>
               <td>
                 <NumberFormat showIndicator colors format='percent' value={t.netProfitPercent} />

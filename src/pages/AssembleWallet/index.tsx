@@ -18,6 +18,9 @@ import { resolver } from './validator';
 import { TickerSelectTextField } from '~/components/Inputs/FundsSelectTextField';
 import { format, parseISO } from 'date-fns';
 import { NumberFormat } from '~/components/NumberFormat';
+import { GenerateDialog } from './GenerateDialog';
+import { ICreateWalletDTO, useCreateWallet } from '~/hooks/resources/useCreateWallet';
+import { queryClient } from '~/services/reactQuery';
 
 interface FormValues {
   value: number;
@@ -26,6 +29,7 @@ interface FormValues {
   endDate: Date;
   actives: {
     id: string;
+    fundId: string;
     ticker: string;
     weight?: number;
   }[];
@@ -37,6 +41,7 @@ interface IAssembleWallet {
   quotas: number;
   date: string;
   itens: {
+    fundId: string;
     ticker: string;
     quotas: number;
     price: number;
@@ -47,7 +52,12 @@ interface IAssembleWallet {
 
 export function AssembleWallet() {
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
   const [assembled, setAssembled] = useState<IAssembleWallet[]>();
+
+  const createWallet = useCreateWallet({
+    onSuccess: () => queryClient.invalidateQueries(['wallets']),
+  });
 
   const {
     handleSubmit,
@@ -75,6 +85,20 @@ export function AssembleWallet() {
     } finally {
       setLoading(false);
     }
+  }
+
+  async function handleCreateWallet({ name, description }: { name: string; description: string }) {
+    const transactions: ICreateWalletDTO['transactions'] = assembled!
+      .map((x) => x.itens)
+      .flat(2)
+      .map((x) => ({
+        fundId: x.fundId,
+        quotas: x.quotas,
+        price: x.price,
+        purchaseAt: x.quotedAt,
+      }));
+    await createWallet.mutateAsync({ name, description, transactions });
+    setShow(false);
   }
 
   const [enablePeriod, actives] = watch(['enablePeriod', 'actives']);
@@ -140,7 +164,10 @@ export function AssembleWallet() {
                   <TickerSelectTextField
                     label='Ticker'
                     value={value}
-                    onChange={(_, option) => onChange(option?.ticker)}
+                    onChange={(_, option) => {
+                      onChange(option!.ticker);
+                      setValue(`actives.${i}.fundId`, option!.id);
+                    }}
                     error={!!error?.message}
                     helperText={error?.message}
                   />
@@ -182,7 +209,7 @@ export function AssembleWallet() {
               endIcon={<AddIcon />}
               onClick={() => {
                 setError('actives', { message: undefined });
-                setValue('actives', [...actives, { id: uuidv4(), ticker: '' }]);
+                setValue('actives', [...actives, { id: uuidv4(), ticker: '', fundId: '' }]);
               }}
             >
               Adicionar ativo
@@ -258,6 +285,18 @@ export function AssembleWallet() {
               </Flex>
             ))}
           </Result>
+
+          <Flex css={{ justifyContent: 'flex-end', gap: 16 }}>
+            <Button variant='contained' onClick={() => setShow(true)}>
+              Salvar carteira
+            </Button>
+          </Flex>
+
+          <GenerateDialog
+            show={show}
+            onConfirm={handleCreateWallet}
+            onClose={() => setShow(false)}
+          />
         </Card>
       )}
     </Container>

@@ -3,6 +3,7 @@ import { AxiosError } from 'axios';
 import { api } from '~/services/apiClient';
 
 export interface ISearchFunds {
+  id: string;
   name: string;
   ticker: string;
   description: string;
