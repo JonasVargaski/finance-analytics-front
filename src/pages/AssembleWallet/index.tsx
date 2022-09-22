@@ -50,6 +50,10 @@ interface IAssembleWallet {
   }[];
 }
 
+function disableWeekends(date: Date) {
+  return date.getDay() === 0 || date.getDay() === 6;
+}
+
 export function AssembleWallet() {
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
@@ -129,6 +133,7 @@ export function AssembleWallet() {
                 name='startDate'
                 control={control}
                 inputProps={{ readOnly: true }}
+                pickerProps={{ shouldDisableDate: disableWeekends }}
               />
             )}
 
@@ -138,6 +143,7 @@ export function AssembleWallet() {
               control={control}
               defaultValue={new Date()}
               inputProps={{ readOnly: true }}
+              pickerProps={{ shouldDisableDate: disableWeekends }}
             />
           </Flex>
 
