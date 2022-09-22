@@ -19,15 +19,8 @@ export const EmptyState = styled.div`
   text-align: center;
 
   img {
-    max-width: 38%;
+    max-width: 25%;
   }
-`;
-
-export const List = styled.ul`
-  display: grid;
-  grid-gap: 1.3rem;
-  grid-template-columns: 1fr;
-  grid-auto-rows: auto;
 `;
 
 export const Actions = styled(Card)`

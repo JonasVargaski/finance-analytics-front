@@ -4,6 +4,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import { AppLayout } from '~/components/Layout';
 
 const Wallets = lazy(() => import('~/pages/Wallets').then(({ Wallets }) => ({ default: Wallets })));
+const Radar = lazy(() => import('~/pages/Radar').then(({ Radar }) => ({ default: Radar })));
 
 const ManageWallets = lazy(() =>
   import('~/pages/ManageWallets').then(({ ManageWallets }) => ({ default: ManageWallets })),
@@ -22,6 +23,7 @@ export function AppRoutes() {
     <Routes>
       <Route element={<AppLayout />}>
         <Route path='/wallets' element={<Wallets />} />
+        <Route path='/radar' element={<Radar />} />
         <Route path='/wallets/performance/:id' element={<Performance />} />
         <Route path='/wallets/manage'>
           <Route path='' element={<ManageWallets />} />
