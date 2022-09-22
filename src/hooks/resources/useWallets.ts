@@ -6,7 +6,7 @@ interface QueryOptions extends UseQueryOptions<IWallet[], AxiosError> {
   id?: string;
 }
 
-interface IWallet {
+export interface IWallet {
   id: string;
   name: string;
   description: string;

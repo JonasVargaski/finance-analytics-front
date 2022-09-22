@@ -28,6 +28,13 @@ export const TickerSelectTextField = forwardRef<TextFieldProps, CustomProps>(
         autoHighlight
         loading={isFetching}
         onChange={onChange}
+        filterOptions={(options, { inputValue }) =>
+          options.filter(
+            (item) =>
+              item.ticker.toLowerCase().includes(inputValue.toLowerCase()) ||
+              item.name.toLowerCase().includes(inputValue.toLowerCase()),
+          )
+        }
         getOptionLabel={(option) => option.ticker}
         isOptionEqualToValue={(option, value) => option.ticker === value.ticker}
         onInputChange={(_, newInputValue, reason) => {

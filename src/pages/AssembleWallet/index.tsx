@@ -56,7 +56,7 @@ export function AssembleWallet() {
   const [assembled, setAssembled] = useState<IAssembleWallet[]>();
 
   const createWallet = useCreateWallet({
-    onSuccess: () => queryClient.invalidateQueries(['wallets']),
+    onSuccess: () => queryClient.resetQueries(['wallets']),
   });
 
   const {
@@ -165,8 +165,8 @@ export function AssembleWallet() {
                     label='Ticker'
                     value={value}
                     onChange={(_, option) => {
-                      onChange(option!.ticker);
-                      setValue(`actives.${i}.fundId`, option!.id);
+                      onChange(option?.ticker);
+                      setValue(`actives.${i}.fundId`, option?.id || '');
                     }}
                     error={!!error?.message}
                     helperText={error?.message}
