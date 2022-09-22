@@ -1,4 +1,7 @@
+import { Pagination } from '@mui/material';
 import { format, parseISO } from 'date-fns';
+import { useState } from 'react';
+import { Flex } from '~/components/Flex';
 import { NumberFormat } from '~/components/NumberFormat';
 import { Container } from './styles';
 
@@ -19,7 +22,12 @@ interface ITransactionsProps {
   }>;
 }
 
+const perPage = 10;
+
 export function Transactions({ data }: ITransactionsProps) {
+  const [page, setPage] = useState(Math.round(data.length / perPage));
+  const count = (page - 1) * perPage;
+
   return (
     <Container>
       <table>
@@ -36,7 +44,7 @@ export function Transactions({ data }: ITransactionsProps) {
           </tr>
         </thead>
         <tbody>
-          {data.map((t) => (
+          {data.slice(count, count + perPage).map((t) => (
             <tr key={t.id}>
               <td>
                 <span>{t.ticker}</span>
@@ -75,6 +83,15 @@ export function Transactions({ data }: ITransactionsProps) {
           ))}
         </tbody>
       </table>
+
+      <Flex m='12px 0 0' css={{ justifyContent: 'flex-end' }}>
+        <Pagination
+          count={Math.round(data.length / perPage)}
+          siblingCount={0}
+          page={page}
+          onChange={(_, next) => setPage(next)}
+        />
+      </Flex>
     </Container>
   );
 }
