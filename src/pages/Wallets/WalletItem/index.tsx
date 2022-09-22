@@ -26,9 +26,10 @@ interface IItemProps {
   };
   onExclude: () => void;
   onView: () => void;
+  onEdit: () => void;
 }
 
-export function WalletItem({ wallet, onExclude, onView }: IItemProps) {
+export function WalletItem({ wallet, onExclude, onView, onEdit }: IItemProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [showOptions, setShowOptions] = useState(false);
   const [showConfirmExclude, setShowConfirmExclude] = useState(false);
@@ -65,7 +66,7 @@ export function WalletItem({ wallet, onExclude, onView }: IItemProps) {
         >
           Desempenho
         </MenuItem>
-        <MenuItem>Editar</MenuItem>
+        <MenuItem onClick={onEdit}>Editar</MenuItem>
         <MenuItem
           onClick={() => {
             setShowOptions(false);

@@ -17,6 +17,10 @@ export const Container = styled.div`
       tr > th {
         font-weight: 600;
       }
+
+      th:first-of-type {
+        text-align: left;
+      }
     }
 
     tbody {

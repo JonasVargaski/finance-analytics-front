@@ -21,7 +21,7 @@ export function NavItems() {
       </NavLink>
       <NavLink to='assemble'>
         <MenuItem>
-          <Equalizer /> Balancear
+          <Equalizer /> Balancear compra
         </MenuItem>
       </NavLink>
     </Container>

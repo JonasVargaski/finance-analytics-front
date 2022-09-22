@@ -25,7 +25,8 @@ export function Wallets() {
             key={wallet.id}
             wallet={wallet}
             onExclude={() => deleteWallet.mutate(wallet.id)}
-            onView={() => setTimeout(() => navigate(`/wallets/${wallet.id}/performance`))}
+            onView={() => setTimeout(() => navigate(`/wallets/performance/${wallet.id}`))}
+            onEdit={() => setTimeout(() => navigate(`/wallets/manage/${wallet.id}`))}
           />
         ))}
       </List>

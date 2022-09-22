@@ -5,6 +5,10 @@ import { AppLayout } from '~/components/Layout';
 
 const Wallets = lazy(() => import('~/pages/Wallets').then(({ Wallets }) => ({ default: Wallets })));
 
+const ManageWallets = lazy(() =>
+  import('~/pages/ManageWallets').then(({ ManageWallets }) => ({ default: ManageWallets })),
+);
+
 const AssembleWallet = lazy(() =>
   import('~/pages/AssembleWallet').then(({ AssembleWallet }) => ({ default: AssembleWallet })),
 );
@@ -18,7 +22,11 @@ export function AppRoutes() {
     <Routes>
       <Route element={<AppLayout />}>
         <Route path='/wallets' element={<Wallets />} />
-        <Route path='/wallets/:id/performance' element={<Performance />} />
+        <Route path='/wallets/performance/:id' element={<Performance />} />
+        <Route path='/wallets/manage'>
+          <Route path='' element={<ManageWallets />} />
+          <Route path=':id' element={<ManageWallets />} />
+        </Route>
         <Route path='/assemble' element={<AssembleWallet />} />
       </Route>
       <Route path='*' element={<Navigate to='/wallets' />} />

@@ -292,7 +292,7 @@ export function AssembleWallet() {
             ))}
           </Result>
 
-          <Flex css={{ justifyContent: 'flex-end', gap: 16 }}>
+          <Flex m='18px 0 0' css={{ justifyContent: 'flex-end', gap: 16 }}>
             <Button variant='contained' onClick={() => setShow(true)}>
               Salvar carteira
             </Button>
