@@ -25,7 +25,7 @@ interface ITransactionsProps {
 const perPage = 10;
 
 export function Transactions({ data }: ITransactionsProps) {
-  const [page, setPage] = useState(Math.round(data.length / perPage));
+  const [page, setPage] = useState(Math.ceil(data.length / perPage));
   const count = (page - 1) * perPage;
 
   return (
@@ -86,7 +86,7 @@ export function Transactions({ data }: ITransactionsProps) {
 
       <Flex m='12px 0 0' css={{ justifyContent: 'flex-end' }}>
         <Pagination
-          count={Math.round(data.length / perPage)}
+          count={Math.ceil(data.length / perPage)}
           siblingCount={0}
           page={page}
           onChange={(_, next) => setPage(next)}
