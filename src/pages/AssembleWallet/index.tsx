@@ -65,9 +65,9 @@ export function AssembleWallet() {
     control,
     watch,
     setValue,
-    setError,
     formState: { errors },
   } = useForm<FormValues>({
+    reValidateMode: 'onBlur',
     defaultValues: { actives: [{ id: uuidv4(), ticker: '' }] },
     resolver,
   });
@@ -212,10 +212,9 @@ export function AssembleWallet() {
           <Flex g='18px' fw css={{ justifyContent: 'flex-end' }}>
             <Button
               endIcon={<AddIcon />}
-              onClick={() => {
-                setError('actives', { message: undefined });
-                setValue('actives', [...actives, { id: uuidv4(), ticker: '', fundId: '' }]);
-              }}
+              onClick={() =>
+                setValue('actives', [...actives, { id: uuidv4(), ticker: '', fundId: '' }])
+              }
             >
               Adicionar ativo
             </Button>

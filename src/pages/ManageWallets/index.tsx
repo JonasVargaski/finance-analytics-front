@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
 
 import { TextFieldForm } from '~/components/Inputs/WithHookForm/TextField';
 
@@ -18,6 +18,8 @@ import { TextFieldNumberForm } from '~/components/Inputs/WithHookForm/TextFieldN
 import { TickerSelectTextField } from '~/components/Inputs/FundsSelectTextField';
 import { DesktopDatePickerForm } from '~/components/Inputs/WithHookForm/DesktopDatePicker';
 import { disableWeekends } from '~/utils/filterWeekends';
+import { useCreateWallet } from '~/hooks/resources/useCreateWallet';
+import { useUpdateWallet } from '~/hooks/resources/useUpdateWallet';
 
 interface IFormValues {
   id?: string;
@@ -26,10 +28,9 @@ interface IFormValues {
   transactions: {
     id: string;
     fundId?: string;
-    ticker?: string;
-    price?: number;
-    quotas?: number;
-    purchaseAt?: string;
+    price?: number | null;
+    quotas?: number | null;
+    purchaseAt?: string | null;
   }[];
 }
 
@@ -40,18 +41,35 @@ export function ManageWallets() {
   const { id } = useParams();
 
   const { data: wallet } = useGetWallet({ id, enabled: !!id, suspense: true });
+  const createWallet = useCreateWallet();
+  const updateWallet = useUpdateWallet();
 
-  const { handleSubmit, control, setValue, setError, watch } = useForm<IFormValues>({
-    defaultValues: wallet ?? { name: '', description: '', transactions: [{ id: uuidv4() }] },
+  const { handleSubmit, control } = useForm<IFormValues>({
+    defaultValues: JSON.parse(
+      JSON.stringify(
+        wallet ?? {
+          name: '',
+          description: '',
+          transactions: [{ id: uuidv4() }],
+        },
+      ),
+    ),
     resolver,
+    reValidateMode: 'onBlur',
   });
 
-  const transactions = watch('transactions');
+  const { fields: transactions, remove, append } = useFieldArray({ control, name: 'transactions' });
 
-  function onSubmit(formValues: IFormValues) {
+  function onSubmit(formValues: any) {
     setLoading(true);
-    console.log({ formValues });
-    navigate('/wallets');
+    if (id) {
+      updateWallet.mutateAsync(formValues).finally(() => setLoading(false));
+    } else {
+      createWallet
+        .mutateAsync(formValues)
+        .then(() => navigate('/wallets'))
+        .finally(() => setLoading(false));
+    }
   }
 
   return (
@@ -83,85 +101,81 @@ export function ManageWallets() {
             <Typography variant='text'>Transações</Typography>
           </Flex>
 
-          {transactions.map((transaction, i) => (
+          {transactions.map((transaction, index) => (
             <Flex m='18px 0' key={transaction.id} g='16px' css={{ alignItems: 'flex-start' }}>
-              <Controller
-                name={`transactions.${i}.fundId`}
-                control={control}
-                render={({ field: { onChange, value }, fieldState: { error } }) => (
-                  <TickerSelectTextField
-                    css={{ maxWidth: 200 }}
-                    fullWidth
-                    label='Ticker'
-                    value={value}
-                    onChange={(_, option) => onChange(option?.id)}
-                    error={!!error?.message}
-                    helperText={error?.message}
-                  />
-                )}
-              />
+              <>
+                <Controller
+                  name={`transactions.${index}.fundId`}
+                  control={control}
+                  render={({ field: { onChange, value }, fieldState: { error } }) => (
+                    <TickerSelectTextField
+                      css={{ maxWidth: 200 }}
+                      fullWidth
+                      label='Ticker'
+                      value={value}
+                      onChange={(_, option) => onChange(option?.id)}
+                      error={!!error?.message}
+                      helperText={error?.message}
+                    />
+                  )}
+                />
 
-              <TextFieldNumberForm
-                name={`transactions.${i}.quotas`}
-                label='Cotas'
-                control={control}
-                css={{ maxWidth: 100 }}
-                autoComplete='off'
-                inputProps={{
-                  prefix: '',
-                  suffix: '',
-                  maxLength: 10,
-                  decimalScale: 0,
-                  thousandSeparator: '.',
-                }}
-              />
+                <TextFieldNumberForm
+                  name={`transactions.${index}.quotas`}
+                  label='Cotas'
+                  control={control}
+                  css={{ maxWidth: 100 }}
+                  autoComplete='off'
+                  inputProps={{
+                    prefix: '',
+                    suffix: '',
+                    maxLength: 10,
+                    decimalScale: 0,
+                    thousandSeparator: '.',
+                  }}
+                />
 
-              <TextFieldNumberForm
-                name={`transactions.${i}.price`}
-                label='Preço'
-                control={control}
-                autoComplete='off'
-              />
+                <TextFieldNumberForm
+                  name={`transactions.${index}.price`}
+                  label='Preço'
+                  control={control}
+                  autoComplete='off'
+                />
 
-              <DesktopDatePickerForm
-                label='Data compra'
-                name={`transactions.${i}.purchaseAt`}
-                control={control}
-                inputProps={{ readOnly: true }}
-                pickerProps={{ shouldDisableDate: disableWeekends }}
-              />
+                <DesktopDatePickerForm
+                  label='Data compra'
+                  name={`transactions.${index}.purchaseAt`}
+                  control={control}
+                  inputProps={{ readOnly: true }}
+                  pickerProps={{ shouldDisableDate: disableWeekends }}
+                />
 
-              <DesktopDatePickerForm
-                label='Data venda'
-                name={`transactions.${i}.salesAt`}
-                control={control}
-                inputProps={{ readOnly: true }}
-                pickerProps={{ shouldDisableDate: disableWeekends }}
-              />
+                <DesktopDatePickerForm
+                  label='Data venda'
+                  name={`transactions.${index}.saleAt`}
+                  control={control}
+                  inputProps={{ readOnly: true }}
+                  pickerProps={{ shouldDisableDate: disableWeekends }}
+                />
 
-              <Tooltip placement='top' title='Remover'>
-                <IconButton
-                  css={{ marginTop: 8, svg: { fontSize: 20 } }}
-                  onClick={() =>
-                    setValue(
-                      'transactions',
-                      transactions.filter((x) => x.id !== transaction.id),
-                    )
-                  }
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </Tooltip>
+                <Tooltip placement='top' title='Remover'>
+                  <IconButton
+                    css={{ marginTop: 8, svg: { fontSize: 20 } }}
+                    onClick={() => remove(index)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              </>
             </Flex>
           ))}
 
           <Flex g='18px' p='8px 0 0' fw css={{ justifyContent: 'flex-end' }}>
             <Button
               endIcon={<AddIcon />}
-              onClick={() => {
-                setError('transactions', { message: undefined });
-                setValue('transactions', [...transactions, { id: uuidv4() }]);
-              }}
+              onClick={() =>
+                append({ id: uuidv4(), fundId: '', price: null, purchaseAt: null, quotas: null })
+              }
             >
               Adicionar transação
             </Button>

@@ -1,6 +1,7 @@
 import { useMutation, UseMutationOptions, UseMutationResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { api } from '~/services/apiClient';
+import { queryClient } from '~/services/reactQuery';
 
 export interface ICreateWalletDTO {
   name: string;
@@ -13,22 +14,20 @@ export interface ICreateWalletDTO {
   }[];
 }
 
-interface IReturnData {
-  id: string;
-}
-
-type MutationOptions = Omit<
-  UseMutationOptions<IReturnData, AxiosError, ICreateWalletDTO>,
-  'mutationFn'
->;
+type MutationOptions = Omit<UseMutationOptions<void, AxiosError, ICreateWalletDTO>, 'mutationFn'>;
 
 async function perform(data: ICreateWalletDTO) {
-  const result = await api.post<IReturnData>('/wallets', data);
+  const result = await api.post<void>('/wallets', data);
   return result.data;
 }
 
 export function useCreateWallet(
-  options?: MutationOptions,
-): UseMutationResult<IReturnData, AxiosError, ICreateWalletDTO> {
-  return useMutation(perform, options);
+  options: MutationOptions = {},
+): UseMutationResult<void, AxiosError, ICreateWalletDTO> {
+  return useMutation(perform, {
+    ...options,
+    onSuccess() {
+      queryClient.resetQueries(['wallets']);
+    },
+  });
 }
