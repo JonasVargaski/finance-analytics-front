@@ -1,31 +1,37 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-import { ISearchFunds, useSearchFunds } from '~/hooks/resources/useSearchFunds';
-import useDebounce from '~/hooks/useDebounce';
-
 import { Option } from './styles';
+import { useListFunds, IFunds } from '~/hooks/resources/useListFunds';
 
 interface CustomProps extends Omit<TextFieldProps, 'onChange'> {
-  onChange: (event: React.SyntheticEvent<Element, Event>, value: ISearchFunds | null) => void;
+  onChange: (event: React.SyntheticEvent<Element, Event>, value: IFunds | null) => void;
+  getValue?: (value: unknown, options?: IFunds[]) => IFunds | null;
+}
+
+function DefaultGetValue(value: unknown, options?: IFunds[]) {
+  return options?.find((x) => x.id === value) ?? null;
 }
 
 export const TickerSelectTextField = forwardRef<TextFieldProps, CustomProps>(
-  function TickerSelectTextField({ onChange, ...rest }, ref) {
-    const [text, setText] = useState('');
-    const debounceSearch = useDebounce<string>(text, 300);
-    const { data: funds, isFetching } = useSearchFunds(debounceSearch);
+  function TickerSelectTextField(
+    { onChange, className, fullWidth, getValue = DefaultGetValue, ...rest },
+    ref,
+  ) {
+    const { data: funds, isFetching } = useListFunds();
 
     return (
       <Autocomplete
         ref={ref}
+        value={getValue(rest.value, funds)}
         id='funds-select'
-        css={{ maxWidth: 300 }}
-        fullWidth
+        className={className}
+        fullWidth={fullWidth}
         options={funds || []}
         autoHighlight
+        disabled={isFetching}
         loading={isFetching}
         onChange={onChange}
         filterOptions={(options, { inputValue }) =>
@@ -37,16 +43,8 @@ export const TickerSelectTextField = forwardRef<TextFieldProps, CustomProps>(
         }
         getOptionLabel={(option) => option.ticker}
         isOptionEqualToValue={(option, value) => option.ticker === value.ticker}
-        onInputChange={(_, newInputValue, reason) => {
-          if (reason === 'clear') {
-            setText('');
-            return;
-          } else {
-            setText(newInputValue);
-          }
-        }}
         loadingText='Pesquisando...'
-        noOptionsText={text.length > 3 ? 'Nenhum ativo encontrado' : 'Digite para pesquisar'}
+        noOptionsText={'Nenhum ativo encontrado'}
         renderOption={({ className, ...props }, option) => (
           <Option {...props}>
             <b>{option.ticker}</b>

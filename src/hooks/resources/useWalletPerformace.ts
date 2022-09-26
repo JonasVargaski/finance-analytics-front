@@ -61,6 +61,7 @@ interface IWalletPerformance {
     sector: string;
     amount: number;
     amountPercent: number;
+    tickers: string[];
   }>;
 }
 

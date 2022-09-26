@@ -61,12 +61,19 @@ export function WalletItem({ wallet, onExclude, onView, onEdit }: IItemProps) {
         <MenuItem
           onClick={() => {
             setShowOptions(false);
-            onView();
+            setTimeout(onView);
           }}
         >
           Desempenho
         </MenuItem>
-        <MenuItem onClick={onEdit}>Editar</MenuItem>
+        <MenuItem
+          onClick={() => {
+            setShowOptions(false);
+            setTimeout(onEdit);
+          }}
+        >
+          Editar
+        </MenuItem>
         <MenuItem
           onClick={() => {
             setShowOptions(false);

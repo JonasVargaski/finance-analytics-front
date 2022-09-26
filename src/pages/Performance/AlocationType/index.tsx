@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, ChartData } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import MuiTooltip from '@mui/material/Tooltip';
 
 import { Flex } from '~/components/Flex';
 import { Column } from '~/components/Grid';
@@ -16,6 +17,7 @@ interface IAlocationTypeProps {
     sector: string;
     amount: number;
     amountPercent: number;
+    tickers: string[];
   }>;
 }
 
@@ -75,7 +77,13 @@ export function AlocationType({ data }: IAlocationTypeProps) {
                   <ColorBadge color={getColor(i)} />
                 </td>
                 <td>
-                  <b>{item.sector}</b>
+                  <MuiTooltip
+                    title={item.tickers.join(', ')}
+                    placement='top-start'
+                    enterDelay={300}
+                  >
+                    <b>{item.sector}</b>
+                  </MuiTooltip>
                 </td>
                 <td>
                   <NumberFormat format='percent' value={item.amountPercent} />

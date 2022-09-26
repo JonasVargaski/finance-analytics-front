@@ -21,6 +21,7 @@ import { NumberFormat } from '~/components/NumberFormat';
 import { GenerateDialog } from './GenerateDialog';
 import { ICreateWalletDTO, useCreateWallet } from '~/hooks/resources/useCreateWallet';
 import { queryClient } from '~/services/reactQuery';
+import { disableWeekends } from '~/utils/filterWeekends';
 
 interface FormValues {
   value: number;
@@ -48,10 +49,6 @@ interface IAssembleWallet {
     amount: number;
     quotedAt: string;
   }[];
-}
-
-function disableWeekends(date: Date) {
-  return date.getDay() === 0 || date.getDay() === 6;
 }
 
 export function AssembleWallet() {
@@ -164,15 +161,17 @@ export function AssembleWallet() {
           {actives.map((active, i) => (
             <Flex m='18px 0' key={active.id} g='16px' css={{ alignItems: 'flex-start' }}>
               <Controller
-                name={`actives.${i}.ticker`}
+                name={`actives.${i}.fundId`}
                 control={control}
                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                   <TickerSelectTextField
+                    fullWidth
+                    css={{ maxWidth: 380 }}
                     label='Ticker'
                     value={value}
                     onChange={(_, option) => {
-                      onChange(option?.ticker);
-                      setValue(`actives.${i}.fundId`, option?.id || '');
+                      onChange(option?.id);
+                      setValue(`actives.${i}.ticker`, option?.ticker || '');
                     }}
                     error={!!error?.message}
                     helperText={error?.message}

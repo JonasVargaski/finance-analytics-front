@@ -16,7 +16,7 @@ export function useWallets(options: QueryOptions = {}): UseQueryResult<IWallet[]
   return useQuery<IWallet[], AxiosError>(
     ['wallets'],
     async () => {
-      const { data } = await api.get<IWallet[]>('/wallets');
+      const { data } = await api.get<IWallet[]>('/wallets/all');
       return data;
     },
     options,
