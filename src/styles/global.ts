@@ -67,15 +67,15 @@ export const globalStyles = css`
   }
 
   *::-webkit-scrollbar-track {
-    background-color: #e7e7e7;
+    background-color: #444;
     border-radius: 10px;
   }
 
   *::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.18);
+    background-color: rgba(0, 0, 0, 0.28);
     border-radius: 10px;
     &:hover {
-      background-color: rgba(0, 0, 0, 0.28);
+      background-color: rgba(0, 0, 0, 0.38);
     }
   }
 

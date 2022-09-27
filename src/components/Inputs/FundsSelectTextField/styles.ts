@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 
 export const Option = styled.li`
-  padding: 4px 12px;
+  padding: 8px 16px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   cursor: pointer;
-  margin: 1.5px 0;
+  margin: 3px 0;
 
   &:hover {
     border-radius: 4px;
