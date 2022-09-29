@@ -22,7 +22,7 @@ export function Performance() {
   if (!id) navigate('/wallets');
 
   const { data } = useWalletPerformace({ id, suspense: true, enabled: !!id });
-  console.log(data);
+
   return (
     <>
       <Flex m='8px 0 20px'>
