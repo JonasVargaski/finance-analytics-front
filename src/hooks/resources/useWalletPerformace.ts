@@ -6,6 +6,14 @@ interface QueryOptions extends UseQueryOptions<IWalletPerformance, AxiosError> {
   id?: string;
 }
 
+interface IResumeMonth {
+  date: string;
+  formatedDate: string;
+  value: number;
+  amount: number;
+  dy: number;
+}
+
 interface IWalletPerformance {
   amout: number;
   provents: number;
@@ -50,13 +58,8 @@ interface IWalletPerformance {
     proventsPercent: number;
     transactions: IWalletPerformance['transactions'];
   }>;
-  proventsMonth: Array<{
-    date: string;
-    formatedDate: string;
-    value: number;
-    amount: number;
-    dy: number;
-  }>;
+  proventsMonth: IResumeMonth[];
+  appreciationMonth: IResumeMonth[];
   portfolioComposition: Array<{
     sector: string;
     amount: number;

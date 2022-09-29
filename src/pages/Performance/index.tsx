@@ -8,6 +8,7 @@ import { useWalletPerformace } from '~/hooks/resources/useWalletPerformace';
 
 import { AlocationActives } from './AlocationActives';
 import { AlocationType } from './AlocationType';
+import { Appreciation } from './Appreciation';
 import { Detailed } from './Detailed';
 import { DividendYield } from './DividendYield';
 import { Provents } from './Provents';
@@ -21,7 +22,7 @@ export function Performance() {
   if (!id) navigate('/wallets');
 
   const { data } = useWalletPerformace({ id, suspense: true, enabled: !!id });
-
+  console.log(data);
   return (
     <>
       <Flex m='8px 0 20px'>
@@ -51,7 +52,7 @@ export function Performance() {
           />
           <ResumeCard
             title='Proventos'
-            tip={`Total de proventos recebidos provenientes das ações/cotas da carteira.\nA porcentagem se sefere aos proventos recebidos levando em consideração o valor investido.`}
+            tip={`Total de proventos recebidos provenientes das ações/cotas da carteira.\nA porcentagem se sefere aos proventos recebidos até o momento, levando em consideração o valor investido.`}
             color='#28a70f'
             value={data?.provents || 0}
             percent={data?.proventsPercent}
@@ -85,6 +86,11 @@ export function Performance() {
         <Card style={{ gridArea: 'dy-graph' }}>
           <Typography variant='cardTitle'>Dividend Yield</Typography>
           <DividendYield data={data?.proventsMonth ?? []} />
+        </Card>
+
+        <Card style={{ gridArea: 'appreciation-graph' }}>
+          <Typography variant='cardTitle'>Valorização dos ativos</Typography>
+          <Appreciation data={data?.appreciationMonth ?? []} />
         </Card>
 
         <Card style={{ gridArea: 'transactions' }}>
