@@ -22,7 +22,7 @@ export function Radar() {
       </Flex>
 
       {data?.length ? (
-        data.map((radar) => <RadarItem key={radar.id} data={radar} />)
+        data.map((radar) => <RadarItem key={radar.id} item={radar} />)
       ) : (
         <EmptyState>
           <img src={PredictiveAnalytics} alt='EmptyState' />

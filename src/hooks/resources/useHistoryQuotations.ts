@@ -4,19 +4,21 @@ import { api } from '~/services/apiClient';
 
 interface IQuotation {
   value: number;
-  date: Date;
+  date: string;
 }
+
+export type tPeriod = '1D' | '3D' | '5D' | '15D' | '1M' | '3M' | '6M';
 
 export function useHistoryQuotations(
   ticker: string,
-  startDate: Date,
+  period: tPeriod,
   options: UseQueryOptions<IQuotation[], AxiosError> = {},
 ): UseQueryResult<IQuotation[], AxiosError> {
   return useQuery<IQuotation[], AxiosError>(
-    ['history-quotations', ticker],
+    ['history-quotations', ticker, period],
     async () => {
       const { data } = await api.get<IQuotation[]>('/funds/quotations', {
-        params: { ticker, startDate },
+        params: { ticker, period },
       });
       return data;
     },
