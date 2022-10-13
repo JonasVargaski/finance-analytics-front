@@ -1,7 +1,8 @@
-import { lazy } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { lazy, useEffect } from 'react';
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 
 import { AppLayout } from '~/components/Layout';
+import { fbTracking } from './utils/fbTracking';
 
 const Wallets = lazy(() => import('~/pages/Wallets').then(({ Wallets }) => ({ default: Wallets })));
 const Radar = lazy(() => import('~/pages/Radar').then(({ Radar }) => ({ default: Radar })));
@@ -19,6 +20,12 @@ const Performance = lazy(() =>
 );
 
 export function AppRoutes() {
+  const location = useLocation();
+
+  useEffect(() => {
+    fbTracking.pageView();
+  }, [location.pathname]);
+
   return (
     <Routes>
       <Route element={<AppLayout />}>
