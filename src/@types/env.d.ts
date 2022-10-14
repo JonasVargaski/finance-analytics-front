@@ -2,7 +2,7 @@
 
 interface ImportMetaEnv {
   readonly VITE_API_URL: string;
-  readonly VITE_FB_PIXEL: string;
+  readonly VITE_FB_TRACKING: string;
 }
 
 interface ImportMeta {

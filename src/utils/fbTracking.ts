@@ -150,6 +150,6 @@ class FbTracking {
 
 const fbTracking = new FbTracking();
 
-fbTracking.init(import.meta.env.VITE_FB_PIXEL);
+fbTracking.init(import.meta.env.VITE_FB_TRACKING);
 
 export { fbTracking };
