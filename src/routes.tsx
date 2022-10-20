@@ -19,6 +19,12 @@ const Performance = lazy(() =>
   import('~/pages/Performance').then(({ Performance }) => ({ default: Performance })),
 );
 
+const NetProfitability = lazy(() =>
+  import('~/pages/NetProfitability').then(({ NetProfitability }) => ({
+    default: NetProfitability,
+  })),
+);
+
 export function AppRoutes() {
   const location = useLocation();
 
@@ -37,6 +43,7 @@ export function AppRoutes() {
           <Route path=':id' element={<ManageWallets />} />
         </Route>
         <Route path='/assemble' element={<AssembleWallet />} />
+        <Route path='/net-profitability' element={<NetProfitability />} />
       </Route>
       <Route path='*' element={<Navigate to='/wallets' />} />
     </Routes>

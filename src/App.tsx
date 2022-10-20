@@ -7,16 +7,19 @@ import { ThemeProvider } from '~/styles';
 import { ReactQueryProvider } from '~/services/reactQuery';
 
 import { AppRoutes } from './routes';
+import { ReactHotToasterProvider } from './services/reactHotToast';
 
 export function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
-        <ReactQueryProvider>
-          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ptBR}>
-            <AppRoutes />
-          </LocalizationProvider>
-        </ReactQueryProvider>
+        <ReactHotToasterProvider>
+          <ReactQueryProvider>
+            <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ptBR}>
+              <AppRoutes />
+            </LocalizationProvider>
+          </ReactQueryProvider>
+        </ReactHotToasterProvider>
       </ThemeProvider>
     </BrowserRouter>
   );

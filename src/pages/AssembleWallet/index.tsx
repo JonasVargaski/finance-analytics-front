@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { Button, CircularProgress, FormHelperText, IconButton, Tooltip } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -80,9 +81,8 @@ export function AssembleWallet() {
         startDate: formValues?.startDate || formValues.endDate,
       });
       setAssembled(data);
-    } catch (error) {
-      //toast
-      console.log(error);
+    } catch ({ message }) {
+      toast.error(`Erro no processamento, motivo:\n${message}`);
     } finally {
       setLoading(false);
     }
@@ -98,8 +98,12 @@ export function AssembleWallet() {
         price: x.price,
         purchaseAt: x.quotedAt,
       }));
-    await createWallet.mutateAsync({ name, description, transactions });
-    setShow(false);
+    try {
+      await createWallet.mutateAsync({ name, description, transactions });
+      setShow(false);
+    } catch ({ message }) {
+      toast.error(`Erro no processamento, motivo:\n${message}`);
+    }
   }
 
   const [enablePeriod, actives] = watch(['enablePeriod', 'actives']);
